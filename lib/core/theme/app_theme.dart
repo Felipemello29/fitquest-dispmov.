@@ -65,14 +65,6 @@ class RPGTheme {
           color: inkLight.withOpacity(0.8),
         ),
       ),
-      cardTheme: CardTheme(
-        color: const Color(0xFF28231C),
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Color(0xFF42372A), width: 1.5),
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
     );
   }
 }

@@ -40,7 +40,7 @@ class HeroesMarchState {
   }
 }
 
-class HeroesMarchNotifier extends AutoDisposeNotifier<HeroesMarchState> {
+class HeroesMarchNotifier extends Notifier<HeroesMarchState> {
   @override
   HeroesMarchState build() {
     final stepStream = ref.watch(stepCountProvider);
@@ -67,5 +67,5 @@ class HeroesMarchNotifier extends AutoDisposeNotifier<HeroesMarchState> {
 }
 
 final heroesMarchNotifierProvider =
-    NotifierProvider.autoDispose<HeroesMarchNotifier, HeroesMarchState>(
+    NotifierProvider<HeroesMarchNotifier, HeroesMarchState>(
         HeroesMarchNotifier.new);
