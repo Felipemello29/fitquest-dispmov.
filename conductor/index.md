@@ -21,7 +21,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Implement Hero's March step tracking and UI**
+- [x] **Track: Implement Hero's March step tracking and UI**
 *Link: [./tracks/heros_march_20260605/](./tracks/heros_march_20260605/)*
 
 ---
