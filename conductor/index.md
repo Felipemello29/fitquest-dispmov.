@@ -29,10 +29,6 @@ Welcome to the FitQuest project. This directory contains the foundational config
 - [x] **Track: Implement Dungeon Exploration check-ins and UI**
 *Link: [./tracks/dungeon_20260605/](./tracks/dungeon_20260605/)*
 
----
-
-- [x] **Track: Implement Avatar Progression and Storage**
-*Link: [./tracks/avatar_20260605/](./tracks/avatar_20260605/)*
 
 ---
 
