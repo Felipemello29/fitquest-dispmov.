@@ -1,19 +1,19 @@
 # Implementation Plan: Setup initial Flutter app structure
 
 ## Phase 1: Project Initialization
-- [ ] Task: Create Flutter Project
-    - [ ] Run `flutter create` command
-    - [ ] Clean up default boilerplate (e.g., in `main.dart`)
-- [ ] Task: Setup Folder Architecture
-    - [ ] Create `lib/features/` directory
-    - [ ] Create `lib/core/` directory
+- [x] Task: Create Flutter Project
+    - [x] Run `flutter create` command
+    - [x] Clean up default boilerplate (e.g., in `main.dart`)
+- [x] Task: Setup Folder Architecture
+    - [x] Create `lib/features/` directory
+    - [x] Create `lib/core/` directory
 
 ## Phase 2: Core Dependencies Configuration
-- [ ] Task: Initialize Riverpod
-    - [ ] Add `flutter_riverpod` dependency to `pubspec.yaml`
-    - [ ] Wrap app with `ProviderScope` in `main.dart`
+- [x] Task: Initialize Riverpod
+    - [x] Add `flutter_riverpod` dependency to `pubspec.yaml`
+    - [x] Wrap app with `ProviderScope` in `main.dart`
 
 ## Phase 3: Finalization
-- [ ] Task: Verification
-    - [ ] Run `flutter pub get`
-    - [ ] Ensure app compiles successfully on Android and iOS
+- [x] Task: Verification
+    - [x] Run `flutter pub get`
+    - [x] Ensure app compiles successfully on Android and iOS
