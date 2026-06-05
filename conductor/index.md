@@ -14,7 +14,3 @@ Welcome to the FitQuest project. This directory contains the foundational config
 ## Development Tracks
 - [Tracks](./tracks/)
 
----
-
-- [x] **Track: Setup initial Flutter app structure**
-*Link: [./tracks/setup_flutter_app_20260605/](./tracks/setup_flutter_app_20260605/)*
