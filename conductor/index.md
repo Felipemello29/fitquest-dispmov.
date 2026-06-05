@@ -32,6 +32,6 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Implement Daily Quests gamification loop**
+- [x] **Track: Implement Daily Quests gamification loop**
 *Link: [./tracks/daily_quests_20260605/](./tracks/daily_quests_20260605/)*
 
