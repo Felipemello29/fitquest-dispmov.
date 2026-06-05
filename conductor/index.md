@@ -16,7 +16,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Initial App Setup and UI Skeleton for FitQuest**
+- [x] **Track: Initial App Setup and UI Skeleton for FitQuest**
 *Link: [./tracks/appsetup_20260605/](./tracks/appsetup_20260605/)*
 
 ---
