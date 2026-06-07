@@ -2,68 +2,81 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RPGTheme {
-  // Colors
-  static const Color darkParchment = Color(0xFF1E1A15);
-  static const Color lightParchment = Color(0xFFF5EFE3);
-  
-  static const Color inkDark = Color(0xFF2C251E);
-  static const Color inkLight = Color(0xFFE8DCC4);
-  
-  static const Color primaryGold = Color(0xFFD4AF37);
-  static const Color accentCrimson = Color(0xFF9E2A2B);
-  static const Color forestGreen = Color(0xFF386641);
-  static const Color manaBlue = Color(0xFF1D3557);
+  // Pencil and Paper Colors
+  static const Color paperBackground = Color(0xFFF9F6EE); // Off-white paper
+  static const Color graphiteDark = Color(0xFF2B2B2B); // Dark pencil lead
+  static const Color graphiteMedium = Color(0xFF595959); // Medium pencil stroke
+  static const Color graphiteLight = Color(0xFFA9A9A9); // Light sketching
+  static const Color redPencil = Color(0xFFD64933); // Red pencil for accents
 
-  static ThemeData get darkTheme {
+  static ThemeData get paperTheme {
     return ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: darkParchment,
-      colorScheme: const ColorScheme.dark(
-        primary: primaryGold,
-        secondary: inkLight,
-        background: darkParchment,
-        error: accentCrimson,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: paperBackground,
+      colorScheme: const ColorScheme.light(
+        primary: graphiteDark,
+        secondary: graphiteMedium,
+        surface: paperBackground,
+        error: redPencil,
+        onPrimary: paperBackground,
+        onSecondary: paperBackground,
+        onSurface: graphiteDark,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: const Color(0xFF15120E),
-        elevation: 4,
-        titleTextStyle: GoogleFonts.cinzel(
-          fontSize: 22,
+        backgroundColor: paperBackground,
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: graphiteDark),
+        titleTextStyle: GoogleFonts.architectsDaughter(
+          fontSize: 28,
           fontWeight: FontWeight.bold,
-          color: primaryGold,
+          color: graphiteDark,
+          letterSpacing: 1.2,
         ),
-        iconTheme: const IconThemeData(color: primaryGold),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Color(0xFF15120E),
-        selectedItemColor: primaryGold,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: paperBackground,
+        selectedItemColor: graphiteDark,
+        unselectedItemColor: graphiteLight,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        elevation: 0,
+      ),
+      cardTheme: CardThemeData(
+        color: paperBackground,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: graphiteMedium, width: 2),
+          borderRadius: BorderRadius.circular(4), // Slightly imperfect looking
+        ),
       ),
       textTheme: TextTheme(
-        headlineLarge: GoogleFonts.cinzel(
+        headlineLarge: GoogleFonts.architectsDaughter(
           fontSize: 32,
           fontWeight: FontWeight.bold,
-          color: primaryGold,
+          color: graphiteDark,
         ),
-        headlineMedium: GoogleFonts.cinzel(
+        headlineMedium: GoogleFonts.architectsDaughter(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: primaryGold,
+          color: graphiteDark,
         ),
-        titleLarge: GoogleFonts.cinzel(
-          fontSize: 20,
+        titleLarge: GoogleFonts.patrickHand(
+          fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: inkLight,
+          color: graphiteDark,
         ),
-        bodyLarge: GoogleFonts.specialElite(
+        bodyLarge: GoogleFonts.patrickHand(
+          fontSize: 18,
+          color: graphiteDark,
+        ),
+        bodyMedium: GoogleFonts.patrickHand(
           fontSize: 16,
-          color: inkLight,
+          color: graphiteMedium,
         ),
-        bodyMedium: GoogleFonts.specialElite(
-          fontSize: 14,
-          color: inkLight.withOpacity(0.8),
-        ),
+      ),
+      dividerTheme: const DividerThemeData(
+        color: graphiteLight,
+        thickness: 1.5,
       ),
     );
   }

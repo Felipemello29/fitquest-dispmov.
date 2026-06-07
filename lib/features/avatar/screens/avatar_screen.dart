@@ -3,17 +3,19 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/user_profile.dart';
 import '../../../core/services/leveling_service.dart';
 import '../../../core/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../auth/providers/auth_provider.dart';
 
-class AvatarScreen extends StatelessWidget {
+class AvatarScreen extends ConsumerWidget {
   const AvatarScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authUser = ref.watch(authProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hero Profile'),
-        centerTitle: true,
+        title: const Text('Character Sheet'),
       ),
       body: ValueListenableBuilder(
         valueListenable: Hive.box<UserProfile>('userProfileBox').listenable(),
@@ -30,67 +32,87 @@ class AvatarScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                // Avatar Frame
+                // Sketchy Avatar Portrait
                 Container(
                   width: 160,
                   height: 160,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: RPGTheme.primaryGold,
-                      width: 4,
+                      color: RPGTheme.graphiteDark,
+                      width: 2,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: RPGTheme.primaryGold.withOpacity(0.3),
-                        blurRadius: 20,
-                        spreadRadius: 5,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: RPGTheme.graphiteMedium,
+                          width: 1,
+                        ),
                       ),
-                    ],
-                    gradient: const LinearGradient(
-                      colors: [RPGTheme.darkParchment, RPGTheme.inkDark],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                      child: const Center(
+                        child: Icon(
+                          Icons.person_outline,
+                          size: 80,
+                          color: RPGTheme.graphiteDark,
+                        ),
+                      ),
                     ),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.person,
-                      size: 80,
-                      color: RPGTheme.inkLight,
+                ),
+                const SizedBox(height: 20),
+                
+                // Name & Class sketch
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                      '___________________________',
+                      style: TextStyle(color: RPGTheme.graphiteLight, fontSize: 20),
                     ),
-                  ),
+                    Column(
+                      children: [
+                        Text(
+                          'Hero of the Realm',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 30),
-                
+
                 // Level Display
-                Text(
-                  'Level $currentLevel',
-                  style: GoogleFonts.cinzel(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: RPGTheme.primaryGold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Hero of the Realm',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: RPGTheme.inkLight.withOpacity(0.8),
-                    fontStyle: FontStyle.italic,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'LVL: ',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    Text(
+                      '$currentLevel',
+                      style: GoogleFonts.architectsDaughter(
+                        fontSize: 42,
+                        fontWeight: FontWeight.bold,
+                        color: RPGTheme.redPencil,
+                      ),
+                    ),
+                  ],
                 ),
                 
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
                 
-                // Experience Bar Container
+                // Experience Bar Container (Sketch style)
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF15120E),
-                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.transparent,
                     border: Border.all(
-                      color: RPGTheme.inkDark,
+                      color: RPGTheme.graphiteDark,
                       width: 2,
                     ),
                   ),
@@ -105,11 +127,7 @@ class AvatarScreen extends StatelessWidget {
                           ),
                           Text(
                             '$xpForCurrent / $xpRequired XP',
-                            style: GoogleFonts.specialElite(
-                              fontSize: 16,
-                              color: RPGTheme.primaryGold,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -118,50 +136,29 @@ class AvatarScreen extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                            height: 20,
+                            height: 24,
                             decoration: BoxDecoration(
-                              color: RPGTheme.darkParchment,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: RPGTheme.inkDark),
+                              color: Colors.transparent,
+                              border: Border.all(color: RPGTheme.graphiteDark, width: 2),
+                            ),
+                            // Sketchy hatch pattern simulation with borders
+                            child: CustomPaint(
+                              painter: HatchPainter(),
                             ),
                           ),
                           LayoutBuilder(
                             builder: (context, constraints) {
                               return Container(
                                 width: constraints.maxWidth * progress,
-                                height: 20,
+                                height: 24,
                                 decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [RPGTheme.manaBlue, Color(0xFF457B9D)],
+                                  color: RPGTheme.graphiteMedium.withOpacity(0.3),
+                                  border: Border(
+                                    right: BorderSide(color: RPGTheme.graphiteDark, width: 2),
                                   ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: RPGTheme.manaBlue.withOpacity(0.5),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
                                 ),
                               );
                             },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Level $currentLevel',
-                            style: GoogleFonts.specialElite(
-                              color: RPGTheme.inkLight.withOpacity(0.6),
-                            ),
-                          ),
-                          Text(
-                            'Level ${currentLevel + 1}',
-                            style: GoogleFonts.specialElite(
-                              color: RPGTheme.inkLight.withOpacity(0.6),
-                            ),
                           ),
                         ],
                       ),
@@ -171,25 +168,48 @@ class AvatarScreen extends StatelessWidget {
                 
                 const SizedBox(height: 30),
                 // Add XP Button for testing
-                ElevatedButton.icon(
+                OutlinedButton.icon(
                   onPressed: () {
                     final box = Hive.box<UserProfile>('userProfileBox');
                     var profile = box.get(0) ?? UserProfile();
                     profile.evolutionPoints += 50;
                     box.put(0, profile);
                   },
-                  icon: const Icon(Icons.add_circle_outline),
+                  icon: const Icon(Icons.fitness_center),
                   label: const Text('Train (Add 50 XP)'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: RPGTheme.forestGreen,
-                    foregroundColor: RPGTheme.lightParchment,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    textStyle: GoogleFonts.cinzel(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: RPGTheme.graphiteDark,
+                    side: const BorderSide(color: RPGTheme.graphiteDark, width: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    textStyle: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
+                if (authUser != null) ...[
+                  const SizedBox(height: 30),
+                  Text(
+                    'Logged in as: ${authUser.email}',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Account Level: ${authUser.accountLevel.name.toUpperCase()}',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      ref.read(authProvider.notifier).logout();
+                    },
+                    icon: const Icon(Icons.logout),
+                    label: const Text('Logout'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: RPGTheme.redPencil,
+                      foregroundColor: RPGTheme.paperBackground,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    ),
+                  ),
+                ],
               ],
             ),
           );
@@ -197,4 +217,19 @@ class AvatarScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class HatchPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = RPGTheme.graphiteLight.withOpacity(0.5)
+      ..strokeWidth = 1;
+    for (double i = 0; i < size.width + size.height; i += 8) {
+      canvas.drawLine(Offset(i, 0), Offset(i - size.height, size.height), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

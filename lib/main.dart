@@ -5,6 +5,8 @@ import 'core/theme/app_theme.dart';
 import 'features/home/screens/main_app_shell.dart';
 import 'core/models/user_profile.dart';
 import 'core/models/quest_model.dart';
+import 'features/auth/screens/login_screen.dart';
+import 'features/auth/providers/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,15 +25,17 @@ void main() async {
 }
 
 /// The root widget of the FitQuest application.
-class FitQuestApp extends StatelessWidget {
+class FitQuestApp extends ConsumerWidget {
   const FitQuestApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authUser = ref.watch(authProvider);
+
     return MaterialApp(
       title: 'FitQuest',
-      theme: RPGTheme.darkTheme,
-      home: const MainAppShell(),
+      theme: RPGTheme.paperTheme,
+      home: authUser == null ? const LoginScreen() : const MainAppShell(),
     );
   }
 }

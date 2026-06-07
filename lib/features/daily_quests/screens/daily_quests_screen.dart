@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/daily_quests_provider.dart';
+import '../../../core/theme/app_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DailyQuestsScreen extends ConsumerWidget {
   const DailyQuestsScreen({super.key});
@@ -11,12 +13,31 @@ class DailyQuestsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daily Quests'),
+        title: const Text('Quest Board'),
       ),
       body: quests.isEmpty
-          ? const Center(child: Text('No quests available.'))
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/monster.png',
+                    height: 150,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'No quests posted today...',
+                    style: GoogleFonts.architectsDaughter(
+                      fontSize: 24,
+                      color: RPGTheme.graphiteMedium,
+                    ),
+                  ),
+                ],
+              ),
+            )
           : ListView.builder(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
               itemCount: quests.length,
               itemBuilder: (context, index) {
                 final quest = quests[index];
@@ -24,43 +45,137 @@ class DailyQuestsScreen extends ConsumerWidget {
                     ? quest.currentValue / quest.targetValue
                     : 0.0;
                 
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 16.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              quest.title,
-                              style: Theme.of(context).textTheme.titleLarge,
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 24.0),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.topCenter,
+                    children: [
+                      // The Quest Card (Piece of paper)
+                      Container(
+                        decoration: BoxDecoration(
+                          color: RPGTheme.paperBackground,
+                          border: Border.all(color: RPGTheme.graphiteMedium, width: 1.5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 4,
+                              offset: const Offset(2, 4),
                             ),
-                            if (quest.isCompleted)
-                              const Icon(Icons.check_circle, color: Colors.green)
                           ],
                         ),
-                        const SizedBox(height: 8.0),
-                        Text(quest.description),
-                        const SizedBox(height: 16.0),
-                        LinearProgressIndicator(
-                          value: progress.clamp(0.0, 1.0),
-                          backgroundColor: Colors.grey[800],
-                          color: quest.isCompleted ? Colors.green : Theme.of(context).primaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10), // Space for the pin
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      quest.title,
+                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                        decoration: quest.isCompleted ? TextDecoration.lineThrough : null,
+                                        decorationThickness: 2.0,
+                                      ),
+                                    ),
+                                  ),
+                                  if (quest.isCompleted)
+                                    Transform.rotate(
+                                      angle: -0.2,
+                                      child: Text(
+                                        'DONE',
+                                        style: GoogleFonts.architectsDaughter(
+                                          color: RPGTheme.redPencil,
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                ],
+                              ),
+                              const SizedBox(height: 12.0),
+                              Text(
+                                quest.description,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              const SizedBox(height: 20.0),
+                              // Hand-drawn style progress indicator
+                              Container(
+                                height: 16,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                                ),
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    return Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        width: constraints.maxWidth * progress.clamp(0.0, 1.0),
+                                        height: double.infinity,
+                                        color: quest.isCompleted ? RPGTheme.graphiteMedium : RPGTheme.graphiteLight.withOpacity(0.5),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${quest.currentValue} / ${quest.targetValue}',
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  Text(
+                                    'Reward: ${quest.xpReward} XP',
+                                    style: GoogleFonts.architectsDaughter(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: RPGTheme.graphiteDark,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('${quest.currentValue} / ${quest.targetValue}'),
-                            Text('+${quest.xpReward} XP',
-                                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amber)),
-                          ],
-                        )
-                      ],
-                    ),
+                      ),
+                      
+                      // Push Pin drawn at the top center
+                      Positioned(
+                        top: -10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: RPGTheme.redPencil,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                offset: const Offset(1, 2),
+                                blurRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

@@ -2,34 +2,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/quest_model.dart';
 import 'package:intl/intl.dart';
-import '../../../core/services/leveling_service.dart';
-import '../../../core/models/user_profile.dart';
 
-final dailyQuestsProvider = StateNotifierProvider<DailyQuestsNotifier, List<Quest>>((ref) {
-  return DailyQuestsNotifier(ref);
-});
+final dailyQuestsProvider = NotifierProvider<DailyQuestsNotifier, List<Quest>>(DailyQuestsNotifier.new);
 
-class DailyQuestsNotifier extends StateNotifier<List<Quest>> {
-  final Ref _ref;
-  final Box<Quest> _questsBox = Hive.box<Quest>('questsBox');
-  final Box<String> _appStateBox = Hive.box<String>('appStateBox');
+class DailyQuestsNotifier extends Notifier<List<Quest>> {
+  late Box<Quest> _questsBox;
+  late Box<String> _appStateBox;
   
   static const String _lastQuestDateKey = 'lastQuestDate';
 
-  DailyQuestsNotifier(this._ref) : super([]) {
-    _initializeQuests();
+  @override
+  List<Quest> build() {
+    _questsBox = Hive.box<Quest>('questsBox');
+    _appStateBox = Hive.box<String>('appStateBox');
+    return _initializeQuests();
   }
 
-  void _initializeQuests() {
+  List<Quest> _initializeQuests() {
     final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final lastDateStr = _appStateBox.get(_lastQuestDateKey);
 
     if (lastDateStr != todayStr) {
       _generateDailyQuests();
       _appStateBox.put(_lastQuestDateKey, todayStr);
-    } else {
-      state = _questsBox.values.toList();
     }
+    return _questsBox.values.toList();
   }
 
   void _generateDailyQuests() {
@@ -39,7 +36,7 @@ class DailyQuestsNotifier extends StateNotifier<List<Quest>> {
     final newQuests = [
       Quest(
         id: 'quest_steps',
-        title: 'Hero\\'s March',
+        title: "Hero's March",
         description: 'Walk 10,000 steps today.',
         targetValue: 10000,
         xpReward: 50,
@@ -63,8 +60,6 @@ class DailyQuestsNotifier extends StateNotifier<List<Quest>> {
     for (var quest in newQuests) {
       _questsBox.put(quest.id, quest);
     }
-
-    state = newQuests;
   }
 
   void updateQuestProgress(String id, int addedValue) {
@@ -89,7 +84,7 @@ class DailyQuestsNotifier extends StateNotifier<List<Quest>> {
       ];
 
       if (isCompleted) {
-        _ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward);
+        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward); // TODO: implement XP addition
       }
     }
   }
@@ -115,7 +110,7 @@ class DailyQuestsNotifier extends StateNotifier<List<Quest>> {
       ];
 
       if (isCompleted) {
-        _ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward);
+        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward); // TODO: implement XP addition
       }
     }
   }
