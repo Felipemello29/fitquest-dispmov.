@@ -23,8 +23,11 @@ const _mockUsers = [
   ),
 ];
 
-class AuthNotifier extends StateNotifier<AuthUser?> {
-  AuthNotifier() : super(null);
+class AuthNotifier extends Notifier<AuthUser?> {
+  @override
+  AuthUser? build() {
+    return null;
+  }
 
   Future<void> login(String email, String password) async {
     // Simulate network delay
@@ -45,6 +48,4 @@ class AuthNotifier extends StateNotifier<AuthUser?> {
   }
 }
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthUser?>((ref) {
-  return AuthNotifier();
-});
+final authProvider = NotifierProvider<AuthNotifier, AuthUser?>(AuthNotifier.new);
