@@ -8,6 +8,9 @@ import 'core/models/quest_model.dart';
 import 'core/models/activity_record_model.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/providers/auth_provider.dart';
+import 'core/services/achievement_service.dart';
+
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +22,9 @@ void main() async {
   await Hive.openBox<Quest>('questsBox');
   await Hive.openBox<ActivityRecord>('activityRecordsBox');
   await Hive.openBox<String>('appStateBox');
+
+  final achievementService = AchievementService();
+  await achievementService.init();
 
   runApp(
     const ProviderScope(
@@ -37,6 +43,7 @@ class FitQuestApp extends ConsumerWidget {
 
     return MaterialApp(
       title: 'FitQuest',
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       theme: RPGTheme.paperTheme,
       home: authUser == null ? const LoginScreen() : const MainAppShell(),
     );

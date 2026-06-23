@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/models/activity_record_model.dart';
 import '../../../core/models/user_profile.dart';
+import '../../classes/models/character_class.dart';
 
 class LogActivityScreen extends ConsumerStatefulWidget {
   const LogActivityScreen({super.key});
@@ -31,8 +32,20 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
     _formKey.currentState!.save();
 
     final met = _activityMets[_selectedActivity] ?? 5.0;
-    // Simple XP calc based on METs and duration
-    final xpEarned = (met * _durationMinutes).round();
+    
+    final userBox = Hive.box<UserProfile>('userProfileBox');
+    final profile = userBox.get(0, defaultValue: UserProfile())!;
+    final characterClass = CharacterClass.getById(profile.currentClassType);
+
+    double multiplier = characterClass.xpMultiplierGeneral;
+    if (_selectedActivity == 'Weightlifting') {
+      multiplier *= characterClass.xpMultiplierDungeon;
+    } else if (_selectedActivity == 'Running' || _selectedActivity == 'Cycling') {
+      multiplier *= characterClass.xpMultiplierHeroesMarch;
+    }
+
+    // Calc based on METs, duration, and class multipliers
+    final xpEarned = ((met * _durationMinutes) * multiplier).round();
 
     final newRecord = ActivityRecord(
       id: const Uuid().v4(),
@@ -46,8 +59,6 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
     final box = Hive.box<ActivityRecord>('activityRecordsBox');
     await box.add(newRecord);
 
-    final userBox = Hive.box<UserProfile>('userProfileBox');
-    final profile = userBox.get(0, defaultValue: UserProfile())!;
     
     // Add xp to evolution points
     profile.evolutionPoints += xpEarned;

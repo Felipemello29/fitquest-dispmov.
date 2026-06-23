@@ -4,22 +4,30 @@ class UserProfile {
   int stepCount;
   int evolutionPoints;
   int level;
+  String? selectedTitleId;
+  String currentClassType;
 
   UserProfile({
     this.stepCount = 0,
     this.evolutionPoints = 0,
     this.level = 1,
+    this.selectedTitleId,
+    this.currentClassType = 'novice',
   });
 
   UserProfile copyWith({
     int? stepCount,
     int? evolutionPoints,
     int? level,
+    String? selectedTitleId,
+    String? currentClassType,
   }) {
     return UserProfile(
       stepCount: stepCount ?? this.stepCount,
       evolutionPoints: evolutionPoints ?? this.evolutionPoints,
       level: level ?? this.level,
+      selectedTitleId: selectedTitleId ?? this.selectedTitleId,
+      currentClassType: currentClassType ?? this.currentClassType,
     );
   }
 }
@@ -33,10 +41,26 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
     final stepCount = reader.readInt();
     final evolutionPoints = reader.readInt();
     final level = reader.readInt();
+    String? selectedTitleId;
+    String currentClassType = 'novice';
+    if (reader.availableBytes > 0) {
+      selectedTitleId = reader.readString();
+      if (selectedTitleId.isEmpty) selectedTitleId = null;
+    }
+    // Read class type if available
+    try {
+      if (reader.availableBytes > 0) {
+        currentClassType = reader.readString();
+      }
+    } catch(e) {
+      // Fallback for old data
+    }
     return UserProfile(
       stepCount: stepCount,
       evolutionPoints: evolutionPoints,
       level: level,
+      selectedTitleId: selectedTitleId,
+      currentClassType: currentClassType,
     );
   }
 
@@ -45,5 +69,11 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
     writer.writeInt(obj.stepCount);
     writer.writeInt(obj.evolutionPoints);
     writer.writeInt(obj.level);
+    if (obj.selectedTitleId != null) {
+      writer.writeString(obj.selectedTitleId!);
+    } else {
+      writer.writeString(''); // or write nothing, but we need consistency for next reads
+    }
+    writer.writeString(obj.currentClassType);
   }
 }

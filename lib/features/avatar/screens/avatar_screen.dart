@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/user_profile.dart';
+import '../../../core/models/title_model.dart';
 import '../../../core/services/leveling_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../achievements/screens/achievements_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../auth/providers/auth_provider.dart';
+import '../../classes/providers/class_provider.dart';
+import '../../classes/screens/class_details_screen.dart';
 
 class AvatarScreen extends ConsumerWidget {
   const AvatarScreen({super.key});
@@ -13,6 +17,8 @@ class AvatarScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authUser = ref.watch(authProvider);
+    final currentClass = ref.watch(classProvider);
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Character Sheet'),
@@ -53,9 +59,9 @@ class AvatarScreen extends ConsumerWidget {
                           width: 1,
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(
-                          Icons.person_outline,
+                          _getIconData(currentClass.iconName),
                           size: 80,
                           color: RPGTheme.graphiteDark,
                         ),
@@ -75,9 +81,41 @@ class AvatarScreen extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        Text(
-                          'Hero of the Realm',
-                          style: Theme.of(context).textTheme.titleLarge,
+                        GestureDetector(
+                          onTap: () => _showTitleSelection(context, userProfile, Hive.box<TitleModel>('titlesBox')),
+                          child: Text(
+                            _getSelectedTitleName(userProfile, Hive.box<TitleModel>('titlesBox')),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              decoration: TextDecoration.underline,
+                              decorationStyle: TextDecorationStyle.dotted,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ClassDetailsScreen()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Class: ${currentClass.name}',
+                                style: GoogleFonts.architectsDaughter(
+                                  color: RPGTheme.redPencil,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  decorationStyle: TextDecorationStyle.dotted,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              const Icon(Icons.info_outline, size: 16, color: RPGTheme.redPencil),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -184,6 +222,22 @@ class AvatarScreen extends ConsumerWidget {
                     textStyle: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AchievementsScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.emoji_events),
+                  label: const Text('View Achievements'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: RPGTheme.graphiteDark,
+                    foregroundColor: RPGTheme.paperBackground,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                ),
                 if (authUser != null) ...[
                   const SizedBox(height: 30),
                   Text(
@@ -216,6 +270,53 @@ class AvatarScreen extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  String _getSelectedTitleName(UserProfile profile, Box<TitleModel> titlesBox) {
+    if (profile.selectedTitleId == null) return 'No Title Selected';
+    final title = titlesBox.get(profile.selectedTitleId);
+    return title?.name ?? 'Unknown Title';
+  }
+
+  void _showTitleSelection(BuildContext context, UserProfile profile, Box<TitleModel> titlesBox) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        final unlockedTitles = titlesBox.values.where((t) => t.isUnlocked).toList();
+        if (unlockedTitles.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.all(24.0),
+            child: Text('No titles unlocked yet. Keep training!'),
+          );
+        }
+        return ListView.builder(
+          itemCount: unlockedTitles.length,
+          itemBuilder: (context, index) {
+            final title = unlockedTitles[index];
+            return ListTile(
+              title: Text(title.name, style: Theme.of(context).textTheme.titleMedium),
+              trailing: profile.selectedTitleId == title.id ? const Icon(Icons.check, color: Colors.green) : null,
+              onTap: () {
+                final box = Hive.box<UserProfile>('userProfileBox');
+                box.put(0, profile.copyWith(selectedTitleId: title.id));
+                Navigator.pop(context);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
+  IconData _getIconData(String name) {
+    switch (name) {
+      case 'fitness_center': return Icons.fitness_center;
+      case 'directions_run': return Icons.directions_run;
+      case 'self_improvement': return Icons.self_improvement;
+      case 'person_outline':
+      default:
+        return Icons.person_outline;
+    }
   }
 }
 
