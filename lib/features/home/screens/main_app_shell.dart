@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../avatar/screens/avatar_screen.dart';
 import '../../dungeon/screens/dungeon_screen.dart';
 import '../../heroes_march/screens/heroes_march_screen.dart';
-
 import '../../daily_quests/screens/daily_quests_screen.dart';
+import '../../boss_battles/ui/boss_battle_screen.dart';
 
 class MainAppShell extends StatefulWidget {
   const MainAppShell({super.key});
@@ -20,6 +20,7 @@ class _MainAppShellState extends State<MainAppShell> {
     const DungeonScreen(),
     const DailyQuestsScreen(),
     const AvatarScreen(),
+    const BossBattleScreen(),
   ];
 
   @override
@@ -51,8 +52,13 @@ class _MainAppShellState extends State<MainAppShell> {
             icon: Icon(Icons.person),
             label: 'Avatar',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_martial_arts),
+            label: 'Boss',
+          ),
         ],
       ),
     );
   }
 }
+
