@@ -16,6 +16,7 @@ The primary audience for FitQuest is **casual exercisers who struggle with consi
 4. **Daily Quests:** Users will engage in daily quests driven by step counts and calorie burn to maintain daily engagement.
 5. **Boss Battles:** Time-limited challenges where users must accumulate a specific amount of physical activity (converted into damage) within a timeframe to defeat bosses and earn rewards.
 6. **Achievements & Titles:** Users are rewarded with badges and custom titles for their profile as they reach significant milestones (e.g., total steps, bosses defeated), driving long-term engagement.
+7. **Adaptive Class System:** Users are dynamically assigned an RPG class (e.g., Warrior, Ranger) based on their real-world fitness habits and achievements. Each class grants specific XP modifiers to reward consistency in their preferred activities.
 
 ## Social & Interaction
 FitQuest is designed as a **strictly single-player journey for personal motivation**, focusing entirely on the individual's progress and connection with their avatar without the pressure of competitive leaderboards.
