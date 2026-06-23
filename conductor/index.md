@@ -31,7 +31,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [~] **Track: Diverse Activity Registration**
+- [x] **Track: Diverse Activity Registration**
 *Link: [./tracks/activity_diversity_20260623/](./tracks/activity_diversity_20260623/)*
 
 ---
