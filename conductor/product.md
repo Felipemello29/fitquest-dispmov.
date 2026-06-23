@@ -15,6 +15,7 @@ The primary audience for FitQuest is **casual exercisers who struggle with consi
 3. **Dungeon Exploration:** Real-world gym check-ins (validated via Google Places API) are interpreted as exploring new "dungeons" or adventure arenas.
 4. **Daily Quests:** Users will engage in daily quests driven by step counts and calorie burn to maintain daily engagement.
 5. **Boss Battles:** Time-limited challenges where users must accumulate a specific amount of physical activity (converted into damage) within a timeframe to defeat bosses and earn rewards.
+6. **Achievements & Titles:** Users are rewarded with badges and custom titles for their profile as they reach significant milestones (e.g., total steps, bosses defeated), driving long-term engagement.
 
 ## Social & Interaction
 FitQuest is designed as a **strictly single-player journey for personal motivation**, focusing entirely on the individual's progress and connection with their avatar without the pressure of competitive leaderboards.
