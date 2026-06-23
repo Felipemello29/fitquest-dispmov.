@@ -10,7 +10,7 @@ FitQuest is a gamified fitness application that transforms the often tiring rout
 The primary audience for FitQuest is **casual exercisers who struggle with consistency and need RPG-style motivation**. It aims to turn the daunting task of forming a habit into an engaging game.
 
 ## Key Mechanics & Progression
-1. **The Hero's March (Marcha do Herói):** Utilizing device sensors (via HealthKit/Health Connect), daily steps are translated into a march within the app, computing evolution points.
+1. **The Hero's March & Activities:** Utilizing device sensors for daily steps, as well as manually logged diverse activities (e.g., cycling, swimming, yoga), users compute evolution points to progress.
 2. **Avatar Progression:** Users will level up a personal avatar and unlock cosmetic gear as they burn calories and complete activities.
 3. **Dungeon Exploration:** Real-world gym check-ins (validated via Google Places API) are interpreted as exploring new "dungeons" or adventure arenas.
 4. **Daily Quests:** Users will engage in daily quests driven by step counts and calorie burn to maintain daily engagement.
