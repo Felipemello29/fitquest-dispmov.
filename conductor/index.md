@@ -29,10 +29,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 - [x] **Track: Implement Dungeon Exploration check-ins and UI**
 *Link: [./tracks/dungeon_20260605/](./tracks/dungeon_20260605/)*
 
----
 
-- [x] **Track: Diverse Activity Registration**
-*Link: [./tracks/activity_diversity_20260623/](./tracks/activity_diversity_20260623/)*
 
 ---
 
