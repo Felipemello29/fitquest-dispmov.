@@ -29,4 +29,22 @@ Welcome to the FitQuest project. This directory contains the foundational config
 - [x] **Track: Implement Dungeon Exploration check-ins and UI**
 *Link: [./tracks/dungeon_20260605/](./tracks/dungeon_20260605/)*
 
+---
 
+- [~] **Track: Diverse Activity Registration**
+*Link: [./tracks/activity_diversity_20260623/](./tracks/activity_diversity_20260623/)*
+
+---
+
+- [ ] **Track: Boss Battles & Time-Limited Challenges**
+*Link: [./tracks/boss_battles_20260623/](./tracks/boss_battles_20260623/)*
+
+---
+
+- [ ] **Track: Titles & Achievements System**
+*Link: [./tracks/titles_achievements_20260623/](./tracks/titles_achievements_20260623/)*
+
+---
+
+- [ ] **Track: Adaptive Class & Skill System**
+*Link: [./tracks/adaptive_classes_20260623/](./tracks/adaptive_classes_20260623/)*
