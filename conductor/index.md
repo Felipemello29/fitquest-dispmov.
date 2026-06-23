@@ -43,5 +43,5 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Adaptive Class & Skill System**
+- [x] **Track: Adaptive Class & Skill System**
 *Link: [./tracks/adaptive_classes_20260623/](./tracks/adaptive_classes_20260623/)*
