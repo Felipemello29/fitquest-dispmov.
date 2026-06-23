@@ -33,7 +33,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Boss Battles & Time-Limited Challenges**
+- [x] **Track: Boss Battles & Time-Limited Challenges**
 *Link: [./tracks/boss_battles_20260623/](./tracks/boss_battles_20260623/)*
 
 ---
