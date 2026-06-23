@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../providers/step_provider.dart';
 import '../../../core/theme/app_theme.dart';
-
+import '../../activities/screens/log_activity_screen.dart';
 class HeroesMarchScreen extends ConsumerWidget {
   const HeroesMarchScreen({super.key});
 
@@ -269,6 +269,23 @@ class HeroesMarchScreen extends ConsumerWidget {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LogActivityScreen()),
+          );
+        },
+        backgroundColor: RPGTheme.graphiteDark,
+        icon: const Icon(Icons.add, color: RPGTheme.paperBackground),
+        label: Text(
+          'Log Activity',
+          style: GoogleFonts.architectsDaughter(
+            color: RPGTheme.paperBackground,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

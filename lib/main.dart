@@ -5,6 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'features/home/screens/main_app_shell.dart';
 import 'core/models/user_profile.dart';
 import 'core/models/quest_model.dart';
+import 'core/models/activity_record_model.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/providers/auth_provider.dart';
 
@@ -13,8 +14,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserProfileAdapter());
   Hive.registerAdapter(QuestAdapter());
+  Hive.registerAdapter(ActivityRecordAdapter());
   await Hive.openBox<UserProfile>('userProfileBox');
   await Hive.openBox<Quest>('questsBox');
+  await Hive.openBox<ActivityRecord>('activityRecordsBox');
   await Hive.openBox<String>('appStateBox');
 
   runApp(

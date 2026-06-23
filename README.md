@@ -20,6 +20,21 @@ FitQuest is a gamified fitness tracking application built with Flutter. It utili
    flutter run
    ```
 
+   **Note on Map Data (Dungeons):** By default, if no API key is provided, the app will use mock data for nearby gyms/dungeons. This allows you to run and test the app immediately without any setup. If you want to see real gyms near you, you must provide a Google Places API key when running the app:
+   ```bash
+   flutter run --dart-define=GOOGLE_API_KEY=your_api_key_here
+   ```
+
+   **Running on Web (Chrome):**
+   If you encounter issues running the app on Chrome (such as CORS errors or blank screens), use the following command for a higher chance of success:
+   ```bash
+   flutter run -d chrome --web-browser-flag "--disable-web-security"
+   ```
+   *To run on Chrome with a real Google Places API key:*
+   ```bash
+   flutter run -d chrome --web-browser-flag "--disable-web-security" --dart-define=GOOGLE_API_KEY=your_api_key_here
+   ```
+
 ## Demo Accounts
 
 You can test the application by logging in with any of the following demo accounts:
