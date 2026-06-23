@@ -38,7 +38,7 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [ ] **Track: Titles & Achievements System**
+- [x] **Track: Titles & Achievements System**
 *Link: [./tracks/titles_achievements_20260623/](./tracks/titles_achievements_20260623/)*
 
 ---
