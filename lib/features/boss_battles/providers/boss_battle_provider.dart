@@ -2,17 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/boss_event.dart';
 import '../models/damage_record.dart';
 
-final bossBattleProvider = StateNotifierProvider<BossBattleNotifier, BossEvent?>((ref) {
-  return BossBattleNotifier();
-});
+final bossBattleProvider = NotifierProvider<BossBattleNotifier, BossEvent?>(BossBattleNotifier.new);
 
-class BossBattleNotifier extends StateNotifier<BossEvent?> {
-  BossBattleNotifier() : super(null) {
-    _initMockBoss();
-  }
-
-  void _initMockBoss() {
-    state = BossEvent(
+class BossBattleNotifier extends Notifier<BossEvent?> {
+  @override
+  BossEvent? build() {
+    return BossEvent(
       id: 'boss_1',
       name: 'The Sloth King',
       description: 'A lazy giant who wants to keep you on the couch.',
