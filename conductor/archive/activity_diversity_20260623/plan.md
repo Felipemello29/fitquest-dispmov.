@@ -6,7 +6,7 @@
 
 ## Phase 2: UI for Manual/Alternative Entries
 - [ ] Task: Create a new UI flow for logging activities manually.
-- [ ] Task: Update Hero's March and Dungeon screens to optionally incorporate or display alternative activities.
+- [ ] Task: Update Hero's March and Masmorra screens to optionally incorporate or display alternative activities.
 
 ## Phase 3: Integration & Testing
 - [ ] Task: Ensure points calculation correctly handles new activities based on METs (Metabolic Equivalent of Task) or duration.

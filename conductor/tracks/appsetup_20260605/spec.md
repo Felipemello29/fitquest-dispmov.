@@ -1,7 +1,7 @@
 # Specification: Initial App Setup and UI Skeleton
 
 ## Overview
-This track focuses on initializing the Flutter project structure for FitQuest and creating the foundational UI skeleton, including the main navigation structure and placeholder screens for the core features (Hero's March, Dungeon Exploration, and Avatar).
+This track focuses on initializing the Flutter project structure for FitQuest and creating the foundational UI skeleton, including the main navigation structure and placeholder screens for the core features (Hero's March, Masmorra Exploration, and Herói).
 
 ## Functional Requirements
 - Initialize Flutter application structure following the Dart Style Guide.
@@ -9,8 +9,8 @@ This track focuses on initializing the Flutter project structure for FitQuest an
 - Set up the main application shell with bottom navigation.
 - Create placeholder screens for:
   - Hero's March (Dashboard)
-  - Dungeon Exploration (Map/Check-ins)
-  - Avatar Profile (Character Stats & Inventory)
+  - Masmorra Exploration (Map/Check-ins)
+  - Herói Profile (Character Stats & Inventory)
 
 ## Non-Functional Requirements
 - Follow best practices for Flutter and Dart.

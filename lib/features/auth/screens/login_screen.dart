@@ -12,14 +12,14 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _SenhaController = TextEditingController();
   bool _isLoading = false;
   String? _errorMessage;
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
+    _SenhaController.dispose();
     super.dispose();
   }
 
@@ -32,7 +32,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       await ref.read(authProvider.notifier).login(
             _emailController.text.trim(),
-            _passwordController.text.trim(),
+            _SenhaController.text.trim(),
           );
       // Main screen will automatically update based on auth state if we set it up properly in main.dart
     } catch (e) {
@@ -74,7 +74,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your Adventure Awaits',
+                  'Sua Aventura Aguarda',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
@@ -82,7 +82,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 if (_errorMessage != null) ...[
                   Text(
                     _errorMessage!,
-                    style: TextStyle(color: RPGTheme.redPencil),
+                    style: TextStyle(color: RPGTheme.potionRed),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
@@ -90,7 +90,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
-                    labelText: 'Email / Adventurer Name',
+                    labelText: 'E-mail / Nome do Aventureiro',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person_outline),
                   ),
@@ -99,9 +99,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: _passwordController,
+                  controller: _SenhaController,
                   decoration: const InputDecoration(
-                    labelText: 'Password',
+                    labelText: 'Senha',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock_outline),
                   ),
@@ -112,8 +112,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ElevatedButton(
                   onPressed: _isLoading ? null : _handleLogin,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: RPGTheme.graphiteDark,
-                    foregroundColor: RPGTheme.paperBackground,
+                    backgroundColor: RPGTheme.inkDark,
+                    foregroundColor: RPGTheme.parchmentBackground,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -126,14 +126,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              RPGTheme.paperBackground,
+                              RPGTheme.parchmentBackground,
                             ),
                           ),
                         )
                       : Text(
-                          'Enter the Realm',
+                          'Entrar no Reino',
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: RPGTheme.paperBackground,
+                                color: RPGTheme.parchmentBackground,
                               ),
                         ),
                 ),
@@ -145,11 +145,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Demo Accounts:',
+                          'Contas de Teste:',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 8),
-                        _buildDemoAccountText('Free: free@test.com / 123'),
+                        _buildDemoAccountText('Gratuito: free@test.com / 123'),
                         _buildDemoAccountText('Premium: premium@test.com / 123'),
                         _buildDemoAccountText('Admin: admin@test.com / 123'),
                       ],

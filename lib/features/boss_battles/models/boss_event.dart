@@ -14,7 +14,7 @@ class BossEvent {
   final int maxHp;
   final int currentHp;
   final DateTime timeLimit;
-  final List<Reward> rewards;
+  final List<Reward> rewards; // Renomeado de Recompensas
 
   BossEvent({
     required this.id,

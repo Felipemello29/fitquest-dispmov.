@@ -8,5 +8,5 @@
 ## Phase 2: App Shell and Navigation
 - [x] Task: Implement main application widget and Riverpod `ProviderScope`.
 - [x] Task: Create `MainAppShell` widget with `BottomNavigationBar`.
-- [x] Task: Create basic placeholder widgets for `HeroesMarchScreen`, `DungeonScreen`, and `AvatarScreen`.
+- [x] Task: Create basic placeholder widgets for `HeroesMarchScreen`, `DungeonScreen`, and `HeroScreen`.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: App Shell and Navigation' (Protocol in workflow.md)

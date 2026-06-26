@@ -19,7 +19,7 @@ void main() async {
   Hive.registerAdapter(QuestAdapter());
   Hive.registerAdapter(ActivityRecordAdapter());
   await Hive.openBox<UserProfile>('userProfileBox');
-  await Hive.openBox<Quest>('questsBox');
+  await Hive.openBox<Quest>('missoesBox');
   await Hive.openBox<ActivityRecord>('activityRecordsBox');
   await Hive.openBox<String>('appStateBox');
 
@@ -44,7 +44,7 @@ class FitQuestApp extends ConsumerWidget {
     return MaterialApp(
       title: 'FitQuest',
       scaffoldMessengerKey: rootScaffoldMessengerKey,
-      theme: RPGTheme.paperTheme,
+      theme: RPGTheme.tavernTheme,
       home: authUser == null ? const LoginScreen() : const MainAppShell(),
     );
   }

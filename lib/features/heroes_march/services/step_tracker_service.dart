@@ -7,8 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 class StepTrackerService {
   final _stepCountController = StreamController<int>.broadcast();
   StreamSubscription<StepCount>? _pedometerSubscription;
-  int? _initialSteps;
-  int _lastSteps = 0;
+  int? _initialsteps;
+  int _laststeps = 0;
   bool _isMocked = false;
   Timer? _mockTimer;
 
@@ -66,12 +66,12 @@ class StepTrackerService {
   void _onStepCount(StepCount event) {
     _isMocked = false;
     final steps = event.steps;
-    if (_initialSteps == null) {
-      _initialSteps = steps;
+    if (_initialsteps == null) {
+      _initialsteps = steps;
       _stepCountController.add(0);
     } else {
-      _lastSteps = steps - _initialSteps!;
-      _stepCountController.add(_lastSteps);
+      _laststeps = steps - _initialsteps!;
+      _stepCountController.add(_laststeps);
     }
   }
 
@@ -86,14 +86,14 @@ class StepTrackerService {
     debugPrint('Enabling simulated step counting.');
     
     // Seed with a base number of steps for today
-    _lastSteps = 2450;
-    _stepCountController.add(_lastSteps);
+    _laststeps = 2450;
+    _stepCountController.add(_laststeps);
 
     // Periodically increment steps to simulate progress
     _mockTimer?.cancel();
     _mockTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      _lastSteps += (10 + (20 * (1.0 - 2.0 * (0.5 - (DateTime.now().millisecond / 1000))))).round(); // random-ish increment
-      _stepCountController.add(_lastSteps);
+      _laststeps += (10 + (20 * (1.0 - 2.0 * (0.5 - (DateTime.now().millisecond / 1000))))).round(); // random-ish increment
+      _stepCountController.add(_laststeps);
     });
   }
 

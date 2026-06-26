@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/boss_event.dart';
-import '../models/damage_record.dart';
+import '../models/boss_event.dart'; // Nome do arquivo corrigido
 
 final bossBattleProvider = NotifierProvider<BossBattleNotifier, BossEvent?>(BossBattleNotifier.new);
 
@@ -9,8 +8,8 @@ class BossBattleNotifier extends Notifier<BossEvent?> {
   BossEvent? build() {
     return BossEvent(
       id: 'boss_1',
-      name: 'The Sloth King',
-      description: 'A lazy giant who wants to keep you on the couch.',
+      name: 'O Rei Preguiça',
+      description: 'Um gigante preguiçoso que quer te manter no sofá.',
       artworkUrl: 'assets/bosses/sloth_king.png',
       maxHp: 10000,
       currentHp: 10000,
@@ -22,10 +21,10 @@ class BossBattleNotifier extends Notifier<BossEvent?> {
     );
   }
 
-  void dealDamage(DamageRecord record) {
+  void dealDamage(int damage) { // Ajuste conforme seu DamageRecord
     if (state == null) return;
     
-    int newHp = state!.currentHp - record.damageDealt;
+    int newHp = state!.currentHp - damage;
     if (newHp < 0) newHp = 0;
     
     state = state!.copyWith(currentHp: newHp);

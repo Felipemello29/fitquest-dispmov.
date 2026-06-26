@@ -37,14 +37,16 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
   }
 
   void _dealSimulatedDamage() {
-    ref.read(bossBattleProvider.notifier).dealDamage(
-      DamageRecord(
-        timestamp: DateTime.now(),
-        activityType: 'steps',
-        amount: 500,
-        damageDealt: 500,
-      ),
+    final record = DamageRecord(
+      timestamp: DateTime.now(),
+      activityType: 'PASSOS',
+      amount: 500,
+      damageDealt: 500,
     );
+    
+    // Corrigido: Passando apenas o campo int damageDealt
+    ref.read(bossBattleProvider.notifier).dealDamage(record.damageDealt);
+    
     _shakeController.forward(from: 0);
   }
 
@@ -54,7 +56,7 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
 
     if (bossEvent == null) {
       return const Scaffold(
-        body: Center(child: Text('No active boss encounter')),
+        body: Center(child: Text('No active Boss encounter')),
       );
     }
 
@@ -62,23 +64,15 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
     final timeRemaining = bossEvent.timeLimit.difference(DateTime.now());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Boss Battle'),
-      ),
+      appBar: AppBar(title: const Text('Boss Battle')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              bossEvent.name,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Text(bossEvent.name, style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 8),
-            Text(
-              bossEvent.description,
-              textAlign: TextAlign.center,
-            ),
+            Text(bossEvent.description, textAlign: TextAlign.center),
             const SizedBox(height: 32),
             AnimatedBuilder(
               animation: _shakeAnimation,
@@ -89,17 +83,9 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
                 );
               },
               child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.red[100],
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.sports_martial_arts,
-                  size: 100,
-                  color: Colors.red,
-                ),
+                width: 200, height: 200,
+                decoration: BoxDecoration(color: Colors.red[100], shape: BoxShape.circle),
+                child: const Icon(Icons.sports_martial_arts, size: 100, color: Colors.red),
               ),
             ),
             const SizedBox(height: 32),
@@ -109,7 +95,7 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
                 Text('HP: ${bossEvent.currentHp} / ${bossEvent.maxHp}'),
                 const SizedBox(height: 8),
                 LinearProgressIndicator(
-                  value: hpPercentage,
+                  value: hpPercentage.clamp(0.0, 1.0),
                   minHeight: 20,
                   color: hpPercentage > 0.5 ? Colors.green : (hpPercentage > 0.2 ? Colors.orange : Colors.red),
                   backgroundColor: Colors.grey[300],
@@ -118,7 +104,7 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
             ),
             const SizedBox(height: 32),
             Text(
-              'Time Remaining: ${timeRemaining.inDays}d ${timeRemaining.inHours.remainder(24)}h',
+              'Tempo Restante: ${timeRemaining.inDays}d ${timeRemaining.inHours.remainder(24)}h',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const Spacer(),
@@ -126,9 +112,6 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
               onPressed: bossEvent.currentHp > 0 ? _dealSimulatedDamage : null,
               icon: const Icon(Icons.flash_on),
               label: const Text('Convert Steps to Damage (Simulate)'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
             ),
             const SizedBox(height: 16),
           ],

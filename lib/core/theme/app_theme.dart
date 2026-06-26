@@ -2,81 +2,108 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RPGTheme {
-  // Pencil and Paper Colors
-  static const Color paperBackground = Color(0xFFF9F6EE); // Off-white paper
-  static const Color graphiteDark = Color(0xFF2B2B2B); // Dark pencil lead
-  static const Color graphiteMedium = Color(0xFF595959); // Medium pencil stroke
-  static const Color graphiteLight = Color(0xFFA9A9A9); // Light sketching
-  static const Color redPencil = Color(0xFFD64933); // Red pencil for accents
+  // Paleta de Cores D&D Taverna
+  static const Color parchmentBackground = Color(0xFFF1E4C3); // Pergaminho envelhecido
+  static const Color inkDark = Color(0xFF3E2723); // Tinta marrom muito escura (quase preto)
+  static const Color woodMedium = Color(0xFF5D4037); // Madeira da taverna
+  static const Color leatherLight = Color(0xFF8D6E63); // Couro claro para bordas
+  static const Color potionRed = Color(0xFFB71C1C); // Vermelho poção de vida/erro
 
-  static ThemeData get paperTheme {
+  static ThemeData get tavernTheme {
     return ThemeData(
       brightness: Brightness.light,
-      scaffoldBackgroundColor: paperBackground,
+      scaffoldBackgroundColor: parchmentBackground,
       colorScheme: const ColorScheme.light(
-        primary: graphiteDark,
-        secondary: graphiteMedium,
-        surface: paperBackground,
-        error: redPencil,
-        onPrimary: paperBackground,
-        onSecondary: paperBackground,
-        onSurface: graphiteDark,
+        primary: woodMedium,
+        secondary: leatherLight,
+        surface: parchmentBackground,
+        error: potionRed,
+        onPrimary: Colors.white,
+        onSecondary: inkDark,
+        onSurface: inkDark,
       ),
+      
+      // Barra superior estilo viga de madeira
       appBarTheme: AppBarTheme(
-        backgroundColor: paperBackground,
-        elevation: 0,
+        backgroundColor: woodMedium,
+        elevation: 4,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: graphiteDark),
-        titleTextStyle: GoogleFonts.architectsDaughter(
+        iconTheme: const IconThemeData(color: parchmentBackground),
+        titleTextStyle: GoogleFonts.medievalSharp(
           fontSize: 28,
           fontWeight: FontWeight.bold,
-          color: graphiteDark,
+          color: parchmentBackground,
           letterSpacing: 1.2,
         ),
       ),
+      
+      // Menu inferior de navegação
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: paperBackground,
-        selectedItemColor: graphiteDark,
-        unselectedItemColor: graphiteLight,
+        backgroundColor: woodMedium,
+        selectedItemColor: parchmentBackground,
+        unselectedItemColor: leatherLight,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        elevation: 0,
+        elevation: 8,
       ),
+      
+      // Cards com cara de pedaços de pergaminho recortados
       cardTheme: CardThemeData(
-        color: paperBackground,
-        elevation: 0,
+        color: const Color(0xFFFAF0D9), // Um tom levemente mais claro que o fundo para destacar
+        elevation: 4,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: graphiteMedium, width: 2),
-          borderRadius: BorderRadius.circular(4), // Slightly imperfect looking
+          side: const BorderSide(color: leatherLight, width: 2), // Borda de couro
+          borderRadius: BorderRadius.circular(6), // Levemente arredondado, mas rústico
         ),
       ),
+      
+      // Fontes medievais e cartunescas
       textTheme: TextTheme(
-        headlineLarge: GoogleFonts.architectsDaughter(
+        headlineLarge: GoogleFonts.medievalSharp(
           fontSize: 32,
           fontWeight: FontWeight.bold,
-          color: graphiteDark,
+          color: inkDark,
         ),
-        headlineMedium: GoogleFonts.architectsDaughter(
+        headlineMedium: GoogleFonts.medievalSharp(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: graphiteDark,
+          color: inkDark,
         ),
-        titleLarge: GoogleFonts.patrickHand(
+        titleLarge: GoogleFonts.macondo( // Macondo é ótima para corpo de texto com cara de fantasia
           fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: graphiteDark,
+          color: inkDark,
         ),
-        bodyLarge: GoogleFonts.patrickHand(
+        bodyLarge: GoogleFonts.macondo(
           fontSize: 18,
-          color: graphiteDark,
+          color: inkDark,
         ),
-        bodyMedium: GoogleFonts.patrickHand(
+        bodyMedium: GoogleFonts.macondo(
           fontSize: 16,
-          color: graphiteMedium,
+          color: woodMedium,
         ),
       ),
+      
+      // Divisórias das telas
       dividerTheme: const DividerThemeData(
-        color: graphiteLight,
+        color: leatherLight,
         thickness: 1.5,
+      ),
+      
+      // Botões padronizados com cara de placa de madeira
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: woodMedium,
+          foregroundColor: parchmentBackground,
+          elevation: 4,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          textStyle: GoogleFonts.medievalSharp(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
       ),
     );
   }

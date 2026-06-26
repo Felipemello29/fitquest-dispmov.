@@ -26,15 +26,15 @@ Welcome to the FitQuest project. This directory contains the foundational config
 
 ---
 
-- [x] **Track: Implement Dungeon Exploration check-ins and UI**
-*Link: [./tracks/dungeon_20260605/](./tracks/dungeon_20260605/)*
+- [x] **Track: Implement Masmorra Exploration check-ins and UI**
+*Link: [./tracks/Masmorra_20260605/](./tracks/Masmorra_20260605/)*
 
 
 
 ---
 
-- [x] **Track: Boss Battles & Time-Limited Challenges**
-*Link: [./tracks/boss_battles_20260623/](./tracks/boss_battles_20260623/)*
+- [x] **Track: Chefe Battles & Time-Limited Challenges**
+*Link: [./tracks/Chefe_battles_20260623/](./tracks/Chefe_battles_20260623/)*
 
 ---
 

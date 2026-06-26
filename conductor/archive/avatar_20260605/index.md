@@ -1,4 +1,4 @@
-# Track avatar_20260605 Context
+# Track Herói_20260605 Context
 
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)

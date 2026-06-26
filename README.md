@@ -1,13 +1,13 @@
 # FitQuest
 
-FitQuest is a gamified fitness tracking application built with Flutter. It utilizes a charming "Pencil & Paper RPG" aesthetic to turn your daily physical activities into epic quests. Track your steps, visit real-world gyms (Dungeons), complete daily quests, and level up your hero!
+FitQuest is a gamified fitness tracking application built with Flutter. It utilizes a charming "Pencil & Paper RPG" aesthetic to turn your daily physical activities into epic missoes. Track your PASSOS, visit real-world gyms (Masmorras), complete daily missoes, and level up your hero!
 
 ## Features
 
 - **RPG Theme:** Enjoy a unique hand-drawn pencil and paper UI with custom sketches.
-- **Daily Quests:** Complete physical activities and steps to earn XP and rewards.
-- **Dungeon Mapping:** Uses geolocation to find nearby gyms and treats them as dungeons you can enter and conquer.
-- **Hero Progression:** Gain XP and level up your avatar as you accomplish your fitness goals.
+- **Daily missoes:** Complete physical activities and PASSOS to earn XP and Recompensas.
+- **Masmorra Mapping:** Uses geolocation to find nearby gyms and treats them as Masmorras you can Entrar and conquer.
+- **Hero Progression:** Gain XP and level up your Herói as you accomplish your fitness goals.
 
 ## How to Run the App
 
@@ -20,7 +20,7 @@ FitQuest is a gamified fitness tracking application built with Flutter. It utili
    flutter run
    ```
 
-   **Note on Map Data (Dungeons):** By default, if no API key is provided, the app will use mock data for nearby gyms/dungeons. This allows you to run and test the app immediately without any setup. If you want to see real gyms near you, you must provide a Google Places API key when running the app:
+   **Note on Map Data (Masmorras):** By default, if no API key is provided, the app will use mock data for nearby gyms/Masmorras. This allows you to run and test the app immediately without any setup. If you want to see real gyms near you, you must provide a Google Places API key when running the app:
    ```bash
    flutter run --dart-define=GOOGLE_API_KEY=your_api_key_here
    ```
@@ -37,16 +37,16 @@ FitQuest is a gamified fitness tracking application built with Flutter. It utili
 
 ## Demo Accounts
 
-You can test the application by logging in with any of the following demo accounts:
+You can test the application by logging in with any of the following Contas de Teste:
 
 - **Free User**
   - Email: `free@test.com`
-  - Password: `123`
+  - Senha: `123`
 
 - **Premium User**
   - Email: `premium@test.com`
-  - Password: `123`
+  - Senha: `123`
 
 - **Administrator**
   - Email: `admin@test.com`
-  - Password: `123`
+  - Senha: `123`

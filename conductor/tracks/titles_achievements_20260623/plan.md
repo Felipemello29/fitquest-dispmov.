@@ -6,7 +6,7 @@
 
 ## Phase 2: User Interface
 - [x] Task: Build an `AchievementsScreen` to display unlocked and locked badges.
-- [x] Task: Update the `AvatarScreen` to allow users to select and display their unlocked Title.
+- [x] Task: Update the `HeroScreen` to allow users to select and display their unlocked Title.
 
 ## Phase 3: Storage & Polish
 - [x] Task: Persist unlocked achievements in Hive.

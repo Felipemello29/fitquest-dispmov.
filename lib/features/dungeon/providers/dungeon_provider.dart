@@ -32,7 +32,7 @@ class DungeonState {
       isLoading: isLoading ?? this.isLoading,
       currentLocation: currentLocation ?? this.currentLocation,
       nearbyGyms: nearbyGyms ?? this.nearbyGyms,
-      error: error, // Can be set to null
+      error: error,
       checkedInGym: checkedInGym ?? this.checkedInGym,
     );
   }
@@ -44,7 +44,6 @@ class DungeonNotifier extends Notifier<DungeonState> {
   @override
   DungeonState build() {
     _locationService = ref.watch(locationServiceProvider);
-    // Initialize in background
     Future.microtask(() => _initialize());
     return DungeonState();
   }
@@ -63,7 +62,7 @@ class DungeonNotifier extends Notifier<DungeonState> {
       } else {
         state = state.copyWith(
           isLoading: false,
-          error: 'Could not determine location.',
+          error: 'Não foi possível determinar a localização.',
         );
       }
     } catch (e) {
@@ -81,25 +80,26 @@ class DungeonNotifier extends Notifier<DungeonState> {
   Future<bool> checkIn(GymLocation gym) async {
     if (state.currentLocation == null) return false;
 
-    // Check distance between current location and gym
-    final distance = Geolocator.distanceBetween(
+    // Cálculo correto da distância usando o método nativo do Geolocator
+    final double distance = Geolocator.distanceBetween(
       state.currentLocation!.latitude,
       state.currentLocation!.longitude,
       gym.latitude,
       gym.longitude,
     );
 
-    // If within 200 meters (or if mocked, allow check-in)
+    // Se estiver dentro de 200 metros ou for mockado, permite o check-in
     if (distance <= 200 || _locationService.isMocked) {
       state = state.copyWith(checkedInGym: gym);
       return true;
     } else {
-      state = state.copyWith(error: 'You are too far from this gym to check in.');
+      state = state.copyWith(error: 'Você está muito longe para fazer check-in.');
       return false;
     }
   }
 }
 
+// Nome do provider atualizado para manter a consistência
 final dungeonNotifierProvider = NotifierProvider<DungeonNotifier, DungeonState>(() {
   return DungeonNotifier();
 });

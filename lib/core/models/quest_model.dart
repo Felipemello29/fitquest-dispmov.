@@ -6,7 +6,7 @@ class Quest {
   final String description;
   final int targetValue;
   final int currentValue;
-  final int xpReward;
+  final int xpRecompensa;
   final bool isCompleted;
 
   Quest({
@@ -15,7 +15,7 @@ class Quest {
     required this.description,
     required this.targetValue,
     this.currentValue = 0,
-    required this.xpReward,
+    required this.xpRecompensa,
     this.isCompleted = false,
   });
 
@@ -25,7 +25,7 @@ class Quest {
     String? description,
     int? targetValue,
     int? currentValue,
-    int? xpReward,
+    int? xpRecompensa,
     bool? isCompleted,
   }) {
     return Quest(
@@ -34,7 +34,7 @@ class Quest {
       description: description ?? this.description,
       targetValue: targetValue ?? this.targetValue,
       currentValue: currentValue ?? this.currentValue,
-      xpReward: xpReward ?? this.xpReward,
+      xpRecompensa: xpRecompensa ?? this.xpRecompensa,
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }
@@ -51,7 +51,7 @@ class QuestAdapter extends TypeAdapter<Quest> {
     final description = reader.readString();
     final targetValue = reader.readInt();
     final currentValue = reader.readInt();
-    final xpReward = reader.readInt();
+    final xpRecompensa = reader.readInt();
     final isCompleted = reader.readBool();
     return Quest(
       id: id,
@@ -59,7 +59,7 @@ class QuestAdapter extends TypeAdapter<Quest> {
       description: description,
       targetValue: targetValue,
       currentValue: currentValue,
-      xpReward: xpReward,
+      xpRecompensa: xpRecompensa,
       isCompleted: isCompleted,
     );
   }
@@ -71,7 +71,7 @@ class QuestAdapter extends TypeAdapter<Quest> {
     writer.writeString(obj.description);
     writer.writeInt(obj.targetValue);
     writer.writeInt(obj.currentValue);
-    writer.writeInt(obj.xpReward);
+    writer.writeInt(obj.xpRecompensa);
     writer.writeBool(obj.isCompleted);
   }
 }

@@ -14,26 +14,26 @@ final stepCountProvider = StreamProvider<int>((ref) {
 });
 
 class HeroesMarchState {
-  final int steps;
+  final int PASSOS;
   final int goal;
   final bool isSimulated;
 
   const HeroesMarchState({
-    required this.steps,
+    required this.PASSOS,
     required this.goal,
     required this.isSimulated,
   });
 
-  int get evolutionPoints => steps ~/ 100;
-  double get progress => (steps / goal).clamp(0.0, 1.0);
+  int get evolutionPoints => PASSOS ~/ 100;
+  double get progress => (PASSOS / goal).clamp(0.0, 1.0);
 
   HeroesMarchState copyWith({
-    int? steps,
+    int? PASSOS,
     int? goal,
     bool? isSimulated,
   }) {
     return HeroesMarchState(
-      steps: steps ?? this.steps,
+      PASSOS: PASSOS ?? this.PASSOS,
       goal: goal ?? this.goal,
       isSimulated: isSimulated ?? this.isSimulated,
     );
@@ -43,22 +43,22 @@ class HeroesMarchState {
 class HeroesMarchNotifier extends Notifier<HeroesMarchState> {
   @override
   HeroesMarchState build() {
-    final stepStream = ref.watch(stepCountProvider);
+    final PASSOStream = ref.watch(stepCountProvider);
     final service = ref.watch(stepTrackerServiceProvider);
 
-    return stepStream.when(
-      data: (steps) => HeroesMarchState(
-        steps: steps,
+    return PASSOStream.when(
+      data: (PASSOS) => HeroesMarchState(
+        PASSOS: PASSOS,
         goal: 10000,
         isSimulated: service.isMocked,
       ),
       error: (_, __) => HeroesMarchState(
-        steps: 2450,
+        PASSOS: 2450,
         goal: 10000,
         isSimulated: true,
       ),
       loading: () => HeroesMarchState(
-        steps: 0,
+        PASSOS: 0,
         goal: 10000,
         isSimulated: service.isMocked,
       ),

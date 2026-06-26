@@ -3,7 +3,7 @@ class CharacterClass {
   final String name;
   final String description;
   final String iconName;
-  final double xpMultiplierDungeon;
+  final double xpMultiplierMasmorra;
   final double xpMultiplierHeroesMarch;
   final double xpMultiplierGeneral;
 
@@ -12,7 +12,7 @@ class CharacterClass {
     required this.name,
     required this.description,
     required this.iconName,
-    this.xpMultiplierDungeon = 1.0,
+    this.xpMultiplierMasmorra = 1.0,
     this.xpMultiplierHeroesMarch = 1.0,
     this.xpMultiplierGeneral = 1.0,
   });
@@ -27,15 +27,15 @@ class CharacterClass {
   static const warrior = CharacterClass(
     id: 'warrior',
     name: 'Warrior',
-    description: 'Masters of strength and gym workouts. Bonus XP for Dungeon check-ins.',
+    description: 'Masters of strength and gym workouts. Bonus XP for Masmorra check-ins.',
     iconName: 'fitness_center',
-    xpMultiplierDungeon: 1.2,
+    xpMultiplierMasmorra: 1.2,
   );
 
   static const ranger = CharacterClass(
     id: 'ranger',
     name: 'Ranger',
-    description: 'Masters of endurance and cardio. Bonus XP for Hero\'s March.',
+    description: 'Masters of endurance and cardio. Bonus XP for Marcha do Herói.',
     iconName: 'directions_run',
     xpMultiplierHeroesMarch: 1.2,
   );

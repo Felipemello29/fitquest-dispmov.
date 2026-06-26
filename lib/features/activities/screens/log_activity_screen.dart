@@ -39,7 +39,7 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
 
     double multiplier = characterClass.xpMultiplierGeneral;
     if (_selectedActivity == 'Weightlifting') {
-      multiplier *= characterClass.xpMultiplierDungeon;
+      multiplier *= characterClass.xpMultiplierMasmorra;
     } else if (_selectedActivity == 'Running' || _selectedActivity == 'Cycling') {
       multiplier *= characterClass.xpMultiplierHeroesMarch;
     }
@@ -92,8 +92,8 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: RPGTheme.graphiteDark, width: 2),
-                  color: RPGTheme.paperBackground,
+                  border: Border.all(color: RPGTheme.inkDark, width: 2),
+                  color: RPGTheme.parchmentBackground,
                 ),
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -119,8 +119,8 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
                       decoration: const InputDecoration(labelText: 'Duration (minutes)'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Enter duration';
-                        if (int.tryParse(value) == null) return 'Enter a valid number';
+                        if (value == null || value.isEmpty) return 'Entrar duration';
+                        if (int.tryParse(value) == null) return 'Entrar a valid number';
                         return null;
                       },
                       onSaved: (value) {
@@ -133,7 +133,7 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _saveActivity,
-                child: const Text('Log Activity & Earn XP'),
+                child: const Text('Registrar Atividade & Earn XP'),
               ),
             ],
           ),

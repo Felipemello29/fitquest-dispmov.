@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../avatar/screens/avatar_screen.dart';
-import '../../dungeon/screens/dungeon_screen.dart';
 import '../../heroes_march/screens/heroes_march_screen.dart';
+import '../../dungeon/screens/dungeon_screen.dart';
 import '../../daily_quests/screens/daily_quests_screen.dart';
+import '../../avatar/screens/avatar_screen.dart';
 import '../../boss_battles/ui/boss_battle_screen.dart';
 
 class MainAppShell extends StatefulWidget {
@@ -18,9 +18,9 @@ class _MainAppShellState extends State<MainAppShell> {
   final List<Widget> _screens = [
     const HeroesMarchScreen(),
     const DungeonScreen(),
-    const DailyQuestsScreen(),
-    const AvatarScreen(),
-    const BossBattleScreen(),
+    const DailyQuestsScreen(), 
+    const AvatarScreen(),      
+    const BossBattleScreen(),  
   ];
 
   @override
@@ -30,35 +30,15 @@ class _MainAppShellState extends State<MainAppShell> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onTap: (index) => setState(() => _currentIndex = index),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.directions_run),
-            label: 'Hero\'s March',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Dungeon',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Quests',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Avatar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sports_martial_arts),
-            label: 'Boss',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.directions_run), label: 'Marcha'),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Masmorra'),
+          BottomNavigationBarItem(icon: Icon(Icons.assignment), label: 'Missões'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Herói'),
+          BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Chefe'),
         ],
       ),
     );
   }
 }
-

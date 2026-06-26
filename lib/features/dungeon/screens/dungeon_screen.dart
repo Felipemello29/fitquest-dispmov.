@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
-import '../providers/dungeon_provider.dart';
+import '../providers/dungeon_provider.dart'; // Import corrigido
 
 class DungeonScreen extends ConsumerStatefulWidget {
   const DungeonScreen({super.key});
@@ -27,16 +27,13 @@ class _DungeonScreenState extends ConsumerState<DungeonScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dungeon Map'),
+        title: const Text('Mapa de Masmorras'),
       ),
-      // Adding a grid background to look like mapping paper
       body: CustomPaint(
         painter: GridPaperPainter(),
         child: state.isLoading
             ? const Center(
-                child: CircularProgressIndicator(
-                  color: RPGTheme.graphiteDark,
-                ),
+                child: CircularProgressIndicator(color: RPGTheme.inkDark),
               )
             : Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -47,152 +44,49 @@ class _DungeonScreenState extends ConsumerState<DungeonScreen> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: RPGTheme.redPencil.withOpacity(0.1),
-                          border: Border.all(color: RPGTheme.redPencil, width: 2),
+                          color: RPGTheme.potionRed.withOpacity(0.1),
+                          border: Border.all(color: RPGTheme.potionRed, width: 2),
                         ),
-                        child: Text(
-                          state.error!,
-                          style: const TextStyle(color: RPGTheme.redPencil),
-                        ),
+                        child: Text(state.error!, style: const TextStyle(color: RPGTheme.potionRed)),
                       ),
                     if (state.checkedInGym != null)
                       Container(
                         padding: const EdgeInsets.all(24),
                         margin: const EdgeInsets.only(bottom: 24),
                         decoration: BoxDecoration(
-                          color: RPGTheme.paperBackground,
-                          border: Border.all(color: RPGTheme.graphiteDark, width: 3),
-                          boxShadow: [
-                            BoxShadow(
-                              color: RPGTheme.graphiteMedium.withOpacity(0.2),
-                              offset: const Offset(4, 4),
-                            )
-                          ],
+                          color: RPGTheme.parchmentBackground,
+                          border: Border.all(color: RPGTheme.inkDark, width: 3),
                         ),
                         child: Column(
                           children: [
-                            Image.asset(
-                              'assets/images/dungeon.png',
-                              height: 120,
-                              fit: BoxFit.contain,
-                            ),
+                            const Icon(Icons.castle, size: 60, color: RPGTheme.inkDark),
                             const SizedBox(height: 16),
-                            Text(
-                              'Entered Dungeon:',
-                              style: GoogleFonts.architectsDaughter(
-                                color: RPGTheme.graphiteMedium,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              state.checkedInGym!.name,
-                              style: GoogleFonts.architectsDaughter(
-                                color: RPGTheme.redPencil,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Ready your weapons, Hero.',
-                              style: GoogleFonts.patrickHand(
-                                color: RPGTheme.graphiteDark,
-                                fontSize: 18,
-                              ),
-                            ),
+                            Text('Masmorra atual:', style: GoogleFonts.architectsDaughter(color: RPGTheme.woodMedium, fontSize: 18)),
+                            Text(state.checkedInGym!.name, style: GoogleFonts.architectsDaughter(color: RPGTheme.potionRed, fontSize: 24, fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
-                    Text(
-                      'Nearby Dungeons',
-                      style: textTheme.headlineMedium,
-                    ),
+                    Text('Masmorras Próximas', style: textTheme.headlineMedium),
                     const SizedBox(height: 16),
                     Expanded(
                       child: state.nearbyGyms.isEmpty
-                          ? Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/monster.png',
-                                    height: 120,
-                                    fit: BoxFit.contain,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    'No dungeons mapped nearby...',
-                                    style: GoogleFonts.architectsDaughter(
-                                      color: RPGTheme.graphiteMedium,
-                                      fontSize: 22,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                          ? const Center(child: Text('Nenhuma masmorra mapeada por perto...'))
                           : ListView.builder(
                               itemCount: state.nearbyGyms.length,
                               itemBuilder: (context, index) {
                                 final gym = state.nearbyGyms[index];
                                 final isCheckedIn = state.checkedInGym?.id == gym.id;
-
-                                return Container(
+                                return Card(
                                   margin: const EdgeInsets.only(bottom: 16),
-                                  decoration: BoxDecoration(
-                                    color: RPGTheme.paperBackground.withOpacity(0.9),
-                                    border: Border.all(
-                                      color: isCheckedIn ? RPGTheme.redPencil : RPGTheme.graphiteMedium,
-                                      width: isCheckedIn ? 3 : 1.5,
-                                    ),
-                                  ),
                                   child: ListTile(
-                                    contentPadding: const EdgeInsets.all(16),
-                                    leading: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: RPGTheme.graphiteDark,
-                                          width: 1.5,
+                                    title: Text(gym.name, style: GoogleFonts.architectsDaughter(fontSize: 20, fontWeight: FontWeight.bold)),
+                                    subtitle: Text(gym.vicinity, style: GoogleFonts.patrickHand()),
+                                    trailing: isCheckedIn 
+                                      ? const Icon(Icons.close, color: RPGTheme.potionRed) 
+                                      : OutlinedButton(
+                                          onPressed: () => ref.read(dungeonNotifierProvider.notifier).checkIn(gym),
+                                          child: const Text('Entrar'),
                                         ),
-                                      ),
-                                      child: Icon(
-                                        Icons.map,
-                                        color: RPGTheme.graphiteDark,
-                                      ),
-                                    ),
-                                    title: Text(
-                                      gym.name,
-                                      style: GoogleFonts.architectsDaughter(
-                                        fontWeight: FontWeight.bold,
-                                        color: RPGTheme.graphiteDark,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      gym.vicinity,
-                                      style: GoogleFonts.patrickHand(
-                                        color: RPGTheme.graphiteMedium,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    trailing: isCheckedIn
-                                        ? const Icon(Icons.close, color: RPGTheme.redPencil, size: 36)
-                                        : OutlinedButton(
-                                            style: OutlinedButton.styleFrom(
-                                              foregroundColor: RPGTheme.graphiteDark,
-                                              side: const BorderSide(color: RPGTheme.graphiteDark, width: 2),
-                                              textStyle: GoogleFonts.architectsDaughter(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              ref.read(dungeonNotifierProvider.notifier).checkIn(gym);
-                                            },
-                                            child: const Text('Enter'),
-                                          ),
                                   ),
                                 );
                               },
@@ -203,39 +97,20 @@ class _DungeonScreenState extends ConsumerState<DungeonScreen> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: RPGTheme.paperBackground,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: RPGTheme.graphiteDark, width: 2),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: const Icon(Icons.refresh, color: RPGTheme.graphiteDark),
-        onPressed: () {
-          ref.read(dungeonNotifierProvider.notifier).refresh();
-        },
+        onPressed: () => ref.read(dungeonNotifierProvider.notifier).refresh(),
+        child: const Icon(Icons.refresh),
       ),
     );
   }
 }
 
-// Custom painter to draw light grid lines typical of D&D mapping paper
 class GridPaperPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = RPGTheme.graphiteLight.withOpacity(0.2)
-      ..strokeWidth = 1;
-
-    const double gridSize = 30.0;
-
-    for (double i = 0; i < size.width; i += gridSize) {
-      canvas.drawLine(Offset(i, 0), Offset(i, size.height), paint);
-    }
-
-    for (double i = 0; i < size.height; i += gridSize) {
-      canvas.drawLine(Offset(0, i), Offset(size.width, i), paint);
-    }
+    final paint = Paint()..color = RPGTheme.leatherLight.withOpacity(0.2)..strokeWidth = 1;
+    for (double i = 0; i < size.width; i += 30) canvas.drawLine(Offset(i, 0), Offset(i, size.height), paint);
+    for (double i = 0; i < size.height; i += 30) canvas.drawLine(Offset(0, i), Offset(size.width, i), paint);
   }
-
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
