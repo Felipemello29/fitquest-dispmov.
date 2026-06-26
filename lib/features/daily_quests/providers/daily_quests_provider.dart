@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/quest_model.dart';
 import 'package:intl/intl.dart';
 
-final dailymissoesProvider = NotifierProvider<DailymissoesNotifier, List<Quest>>(DailymissoesNotifier.new);
+final dailyQuestsProvider = NotifierProvider<DailymissoesNotifier, List<Quest>>(DailymissoesNotifier.new);
 
 class DailymissoesNotifier extends Notifier<List<Quest>> {
   late Box<Quest> _missoesBox;
@@ -66,14 +66,14 @@ class DailymissoesNotifier extends Notifier<List<Quest>> {
     final questIndex = state.indexWhere((q) => q.id == id);
     if (questIndex != -1) {
       final quest = state[questIndex];
-      if (quest.isConcluido) return; // already CONCLUÍDO
+      if (quest.isCompleted) return; // already CONCLUÍDO
 
       final newValue = quest.currentValue + addedValue;
-      final isConcluido = newValue >= quest.targetValue;
+      final isCompleted = newValue >= quest.targetValue;
 
       final updatedQuest = quest.copyWith(
         currentValue: newValue,
-        isConcluido: isConcluido,
+        isCompleted: isCompleted,
       );
 
       _missoesBox.put(id, updatedQuest);
@@ -83,7 +83,7 @@ class DailymissoesNotifier extends Notifier<List<Quest>> {
           if (q.id == id) updatedQuest else q
       ];
 
-      if (isConcluido) {
+      if (isCompleted) {
         // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpRecompensa); // TODO: implement XP addition
       }
     }
@@ -93,13 +93,13 @@ class DailymissoesNotifier extends Notifier<List<Quest>> {
     final questIndex = state.indexWhere((q) => q.id == id);
     if (questIndex != -1) {
       final quest = state[questIndex];
-      if (quest.isConcluido) return;
+      if (quest.isCompleted) return;
 
-      final isConcluido = newValue >= quest.targetValue;
+      final isCompleted = newValue >= quest.targetValue;
 
       final updatedQuest = quest.copyWith(
         currentValue: newValue,
-        isConcluido: isConcluido,
+        isCompleted: isCompleted,
       );
 
       _missoesBox.put(id, updatedQuest);
@@ -109,7 +109,7 @@ class DailymissoesNotifier extends Notifier<List<Quest>> {
           if (q.id == id) updatedQuest else q
       ];
 
-      if (isConcluido) {
+      if (isCompleted) {
         // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpRecompensa); // TODO: implement XP addition
       }
     }

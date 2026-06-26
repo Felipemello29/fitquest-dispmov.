@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/daily_missoes_provider.dart';
+import '../providers/daily_quests_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DailyMissoesScreen extends ConsumerWidget {
-  const DailyMissoesScreen({super.key});
+class DailyQuestsScreen extends ConsumerWidget {
+  const DailyQuestsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final missoes = ref.watch(dailymissoesProvider);
+    final missoes = ref.watch(dailyQuestsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,12 +77,12 @@ class DailyMissoesScreen extends ConsumerWidget {
                                     child: Text(
                                       quest.title,
                                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        decoration: quest.isConcluido ? TextDecoration.lineThrough : null,
+                                        decoration: quest.isCompleted ? TextDecoration.lineThrough : null,
                                         decorationThickness: 2.0,
                                       ),
                                     ),
                                   ),
-                                  if (quest.isConcluido)
+                                  if (quest.isCompleted)
                                     Transform.rotate(
                                       angle: -0.2,
                                       child: Text(
@@ -116,7 +116,7 @@ class DailyMissoesScreen extends ConsumerWidget {
                                       child: Container(
                                         width: constraints.maxWidth * progress.clamp(0.0, 1.0),
                                         height: double.infinity,
-                                        color: quest.isConcluido ? RPGTheme.woodMedium : RPGTheme.leatherLight.withOpacity(0.5),
+                                        color: quest.isCompleted ? RPGTheme.woodMedium : RPGTheme.leatherLight.withOpacity(0.5),
                                       ),
                                     );
                                   },

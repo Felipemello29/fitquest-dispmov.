@@ -27,7 +27,7 @@ The "Chefe Battles & Time-Limited Challenges" track introduces a new gameplay fe
   - `damageDealt` (int)
 
 ### 2.3 State Management
-- A `ChefeBattleProvider` (using Riverpod) will track the active Chefe encounter, calculate the damage based on daily stats, and update the Chefe's current HP.
+- A `bossBattleProvider` (using Riverpod) will track the active Chefe encounter, calculate the damage based on daily stats, and update the Chefe's current HP.
 
 ## 3. User Interface (UI)
 

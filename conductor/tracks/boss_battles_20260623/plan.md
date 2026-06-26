@@ -2,7 +2,7 @@
 
 ## Phase 1: Core Mechanics and Models
 - [ ] Task: Create `ChefeEvent` and `DamageRecord` data models.
-- [ ] Task: Create a `ChefeBattleProvider` in Riverpod to manage active Chefe encounters and calculate user damage from daily stats.
+- [ ] Task: Create a `bossBattleProvider` in Riverpod to manage active Chefe encounters and calculate user damage from daily stats.
 
 ## Phase 2: Chefe Battle UI
 - [ ] Task: Build `ChefeBattleScreen` to show Chefe artwork, HP bar, and Tempo Restante.

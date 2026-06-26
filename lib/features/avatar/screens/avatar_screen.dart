@@ -11,8 +11,9 @@ import '../../auth/providers/auth_provider.dart';
 import '../../classes/providers/class_provider.dart';
 import '../../classes/screens/class_details_screen.dart';
 
-class HeroScreen extends ConsumerWidget {
-  const HeroScreen({super.key});
+// Classe renomeada para AvatarScreen para bater com o construtor do MainAppShell
+class AvatarScreen extends ConsumerWidget {
+  const AvatarScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,26 +46,19 @@ class HeroScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
-                  // Sketchy Herói Portrait
                   Container(
                     width: 160,
                     height: 160,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: RPGTheme.inkDark,
-                        width: 2,
-                      ),
+                      border: Border.all(color: RPGTheme.inkDark, width: 2),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: RPGTheme.woodMedium,
-                            width: 1,
-                          ),
+                          border: Border.all(color: RPGTheme.woodMedium, width: 1),
                         ),
                         child: Center(
                           child: Icon(
@@ -77,8 +71,6 @@ class HeroScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
-                  // Name & Class sketch
                   Stack(
                     alignment: Alignment.center,
                     children: [
@@ -129,15 +121,10 @@ class HeroScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 30),
-
-                  // Level Display
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'NÍVEL: ',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
+                      Text('NÍVEL: ', style: Theme.of(context).textTheme.headlineMedium),
                       Text(
                         '$currentLevel',
                         style: GoogleFonts.medievalSharp(
@@ -148,36 +135,23 @@ class HeroScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  
                   const SizedBox(height: 30),
-                  
-                  // Experience Bar Container (Sketch style)
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
-                      border: Border.all(
-                        color: RPGTheme.inkDark,
-                        width: 2,
-                      ),
+                      border: Border.all(color: RPGTheme.inkDark, width: 2),
                     ),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Pontos de Evolução (XP)',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            Text(
-                              '$xpForCurrent / $xpRequired XP',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                            ),
+                            Text('Pontos de Evolução (XP)', style: Theme.of(context).textTheme.titleLarge),
+                            Text('$xpForCurrent / $xpRequired XP', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
                           ],
                         ),
                         const SizedBox(height: 16),
-                        // XP Bar
                         Stack(
                           children: [
                             Container(
@@ -186,10 +160,7 @@ class HeroScreen extends ConsumerWidget {
                                 color: Colors.transparent,
                                 border: Border.all(color: RPGTheme.inkDark, width: 2),
                               ),
-                              // Sketchy hatch pattern simulation with borders
-                              child: CustomPaint(
-                                painter: HatchPainter(),
-                              ),
+                              child: CustomPaint(painter: HatchPainter()),
                             ),
                             LayoutBuilder(
                               builder: (context, constraints) {
@@ -210,9 +181,7 @@ class HeroScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  
                   const SizedBox(height: 30),
-                  // Add XP Button for testing
                   OutlinedButton.icon(
                     onPressed: () {
                       final box = Hive.box<UserProfile>('userProfileBox');
@@ -254,8 +223,8 @@ class HeroScreen extends ConsumerWidget {
                     Text(
                       'Nível da Conta: ${authUser.accountLevel.name.toUpperCase()}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton.icon(
@@ -325,9 +294,7 @@ class HeroScreen extends ConsumerWidget {
       case 'fitness_center': return Icons.fitness_center;
       case 'directions_run': return Icons.directions_run;
       case 'self_improvement': return Icons.self_improvement;
-      case 'person_outline':
-      default:
-        return Icons.person_outline;
+      default: return Icons.person_outline;
     }
   }
 }
