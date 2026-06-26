@@ -1,12 +1,12 @@
-class Reward {
+class Recompensa {
   final String id;
   final String name;
   final int quantity;
   
-  Reward({required this.id, required this.name, required this.quantity});
+  Recompensa({required this.id, required this.name, required this.quantity});
 }
 
-class BossEvent {
+class ChefeEvent {
   final String id;
   final String name;
   final String description;
@@ -14,9 +14,9 @@ class BossEvent {
   final int maxHp;
   final int currentHp;
   final DateTime timeLimit;
-  final List<Reward> rewards;
+  final List<Recompensa> Recompensas;
 
-  BossEvent({
+  ChefeEvent({
     required this.id,
     required this.name,
     required this.description,
@@ -24,10 +24,10 @@ class BossEvent {
     required this.maxHp,
     required this.currentHp,
     required this.timeLimit,
-    required this.rewards,
+    required this.Recompensas,
   });
 
-  BossEvent copyWith({
+  ChefeEvent copyWith({
     String? id,
     String? name,
     String? description,
@@ -35,9 +35,9 @@ class BossEvent {
     int? maxHp,
     int? currentHp,
     DateTime? timeLimit,
-    List<Reward>? rewards,
+    List<Recompensa>? Recompensas,
   }) {
-    return BossEvent(
+    return ChefeEvent(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -45,7 +45,7 @@ class BossEvent {
       maxHp: maxHp ?? this.maxHp,
       currentHp: currentHp ?? this.currentHp,
       timeLimit: timeLimit ?? this.timeLimit,
-      rewards: rewards ?? this.rewards,
+      Recompensas: Recompensas ?? this.Recompensas,
     );
   }
 }

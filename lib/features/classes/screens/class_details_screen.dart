@@ -25,11 +25,11 @@ class ClassDetailsScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: RPGTheme.paperBackground,
-                border: Border.all(color: RPGTheme.graphiteDark, width: 3),
+                color: RPGTheme.parchmentBackground,
+                border: Border.all(color: RPGTheme.inkDark, width: 3),
                 boxShadow: [
                   BoxShadow(
-                    color: RPGTheme.graphiteMedium.withOpacity(0.2),
+                    color: RPGTheme.woodMedium.withOpacity(0.2),
                     offset: const Offset(4, 4),
                   )
                 ],
@@ -39,13 +39,13 @@ class ClassDetailsScreen extends ConsumerWidget {
                   Icon(
                     _getIconData(currentClass.iconName),
                     size: 80,
-                    color: RPGTheme.graphiteDark,
+                    color: RPGTheme.inkDark,
                   ),
                   const SizedBox(height: 16),
                   Text(
                     currentClass.name.toUpperCase(),
                     style: GoogleFonts.architectsDaughter(
-                      color: RPGTheme.redPencil,
+                      color: RPGTheme.potionRed,
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2.0,
@@ -56,7 +56,7 @@ class ClassDetailsScreen extends ConsumerWidget {
                     currentClass.description,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.patrickHand(
-                      color: RPGTheme.graphiteDark,
+                      color: RPGTheme.inkDark,
                       fontSize: 18,
                     ),
                   ),
@@ -73,13 +73,13 @@ class ClassDetailsScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             _buildPerkItem(
               icon: Icons.fitness_center,
-              title: 'Dungeon (Strength) Multiplier',
-              value: '${((currentClass.xpMultiplierDungeon - 1) * 100).toInt()}% Bonus XP',
-              isActive: currentClass.xpMultiplierDungeon > 1.0,
+              title: 'Masmorra (Strength) Multiplier',
+              value: '${((currentClass.xpMultiplierMasmorra - 1) * 100).toInt()}% Bonus XP',
+              isActive: currentClass.xpMultiplierMasmorra > 1.0,
             ),
             _buildPerkItem(
               icon: Icons.directions_run,
-              title: 'Hero\'s March (Cardio) Multiplier',
+              title: 'Marcha do Herói (Cardio) Multiplier',
               value: '${((currentClass.xpMultiplierHeroesMarch - 1) * 100).toInt()}% Bonus XP',
               isActive: currentClass.xpMultiplierHeroesMarch > 1.0,
             ),
@@ -95,7 +95,7 @@ class ClassDetailsScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: RPGTheme.graphiteLight, width: 1.5),
+                border: Border.all(color: RPGTheme.leatherLight, width: 1.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -103,7 +103,7 @@ class ClassDetailsScreen extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.info_outline, color: RPGTheme.graphiteDark),
+                      const Icon(Icons.info_outline, color: RPGTheme.inkDark),
                       const SizedBox(width: 8),
                       Text(
                         'How Classes Work',
@@ -131,8 +131,8 @@ class ClassDetailsScreen extends ConsumerWidget {
                       icon: const Icon(Icons.sync),
                       label: const Text('Evaluate Current Class'),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: RPGTheme.graphiteDark,
-                        side: const BorderSide(color: RPGTheme.graphiteDark, width: 2),
+                        foregroundColor: RPGTheme.inkDark,
+                        side: const BorderSide(color: RPGTheme.inkDark, width: 2),
                       ),
                     ),
                   ),
@@ -152,12 +152,12 @@ class ClassDetailsScreen extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: RPGTheme.paperBackground,
-        border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+        color: RPGTheme.parchmentBackground,
+        border: Border.all(color: RPGTheme.inkDark, width: 1.5),
       ),
       child: Row(
         children: [
-          Icon(icon, color: RPGTheme.graphiteDark, size: 28),
+          Icon(icon, color: RPGTheme.inkDark, size: 28),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -173,7 +173,7 @@ class ClassDetailsScreen extends ConsumerWidget {
                 Text(
                   value,
                   style: GoogleFonts.patrickHand(
-                    color: RPGTheme.redPencil,
+                    color: RPGTheme.potionRed,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),

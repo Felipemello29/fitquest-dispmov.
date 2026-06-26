@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/daily_quests_provider.dart';
+import '../providers/daily_missoes_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DailyQuestsScreen extends ConsumerWidget {
-  const DailyQuestsScreen({super.key});
+class DailyMissoesScreen extends ConsumerWidget {
+  const DailyMissoesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quests = ref.watch(dailyQuestsProvider);
+    final missoes = ref.watch(dailymissoesProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quest Board'),
+        title: const Text('Quadro de missoes'),
       ),
-      body: quests.isEmpty
+      body: missoes.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -27,10 +27,10 @@ class DailyQuestsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'No quests posted today...',
+                    'No missoes posted today...',
                     style: GoogleFonts.architectsDaughter(
                       fontSize: 24,
-                      color: RPGTheme.graphiteMedium,
+                      color: RPGTheme.woodMedium,
                     ),
                   ),
                 ],
@@ -38,9 +38,9 @@ class DailyQuestsScreen extends ConsumerWidget {
             )
           : ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-              itemCount: quests.length,
+              itemCount: missoes.length,
               itemBuilder: (context, index) {
-                final quest = quests[index];
+                final quest = missoes[index];
                 final progress = quest.targetValue > 0
                     ? quest.currentValue / quest.targetValue
                     : 0.0;
@@ -54,8 +54,8 @@ class DailyQuestsScreen extends ConsumerWidget {
                       // The Quest Card (Piece of paper)
                       Container(
                         decoration: BoxDecoration(
-                          color: RPGTheme.paperBackground,
-                          border: Border.all(color: RPGTheme.graphiteMedium, width: 1.5),
+                          color: RPGTheme.parchmentBackground,
+                          border: Border.all(color: RPGTheme.woodMedium, width: 1.5),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.05),
@@ -77,18 +77,18 @@ class DailyQuestsScreen extends ConsumerWidget {
                                     child: Text(
                                       quest.title,
                                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        decoration: quest.isCompleted ? TextDecoration.lineThrough : null,
+                                        decoration: quest.isConcluido ? TextDecoration.lineThrough : null,
                                         decorationThickness: 2.0,
                                       ),
                                     ),
                                   ),
-                                  if (quest.isCompleted)
+                                  if (quest.isConcluido)
                                     Transform.rotate(
                                       angle: -0.2,
                                       child: Text(
                                         'DONE',
                                         style: GoogleFonts.architectsDaughter(
-                                          color: RPGTheme.redPencil,
+                                          color: RPGTheme.potionRed,
                                           fontSize: 28,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -107,7 +107,7 @@ class DailyQuestsScreen extends ConsumerWidget {
                                 height: 16,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                                  border: Border.all(color: RPGTheme.inkDark, width: 1.5),
                                 ),
                                 child: LayoutBuilder(
                                   builder: (context, constraints) {
@@ -116,7 +116,7 @@ class DailyQuestsScreen extends ConsumerWidget {
                                       child: Container(
                                         width: constraints.maxWidth * progress.clamp(0.0, 1.0),
                                         height: double.infinity,
-                                        color: quest.isCompleted ? RPGTheme.graphiteMedium : RPGTheme.graphiteLight.withOpacity(0.5),
+                                        color: quest.isConcluido ? RPGTheme.woodMedium : RPGTheme.leatherLight.withOpacity(0.5),
                                       ),
                                     );
                                   },
@@ -131,11 +131,11 @@ class DailyQuestsScreen extends ConsumerWidget {
                                     style: Theme.of(context).textTheme.bodyLarge,
                                   ),
                                   Text(
-                                    'Reward: ${quest.xpReward} XP',
+                                    'Recompensa: ${quest.xpRecompensa} XP',
                                     style: GoogleFonts.architectsDaughter(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
-                                      color: RPGTheme.graphiteDark,
+                                      color: RPGTheme.inkDark,
                                     ),
                                   ),
                                 ],
@@ -152,9 +152,9 @@ class DailyQuestsScreen extends ConsumerWidget {
                           width: 20,
                           height: 20,
                           decoration: BoxDecoration(
-                            color: RPGTheme.redPencil,
+                            color: RPGTheme.potionRed,
                             shape: BoxShape.circle,
-                            border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                            border: Border.all(color: RPGTheme.inkDark, width: 1.5),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),

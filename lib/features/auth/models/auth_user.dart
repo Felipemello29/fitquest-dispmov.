@@ -7,13 +7,13 @@ enum AccountLevel {
 class AuthUser {
   final String id;
   final String email;
-  final String password;
+  final String Senha;
   final AccountLevel accountLevel;
 
   const AuthUser({
     required this.id,
     required this.email,
-    required this.password,
+    required this.Senha,
     required this.accountLevel,
   });
 }

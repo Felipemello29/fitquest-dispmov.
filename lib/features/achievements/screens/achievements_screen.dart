@@ -37,7 +37,7 @@ class AchievementsScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side: BorderSide(
-                    color: achievement.isUnlocked ? RPGTheme.graphiteDark : Colors.grey[400]!,
+                    color: achievement.isUnlocked ? RPGTheme.inkDark : Colors.grey[400]!,
                     width: 2,
                   ),
                 ),

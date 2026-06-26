@@ -1,23 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/boss_event.dart';
+import '../models/Chefe_event.dart';
 import '../models/damage_record.dart';
 
-final bossBattleProvider = NotifierProvider<BossBattleNotifier, BossEvent?>(BossBattleNotifier.new);
+final ChefeBattleProvider = NotifierProvider<ChefeBattleNotifier, ChefeEvent?>(ChefeBattleNotifier.new);
 
-class BossBattleNotifier extends Notifier<BossEvent?> {
+class ChefeBattleNotifier extends Notifier<ChefeEvent?> {
   @override
-  BossEvent? build() {
-    return BossEvent(
-      id: 'boss_1',
-      name: 'The Sloth King',
-      description: 'A lazy giant who wants to keep you on the couch.',
-      artworkUrl: 'assets/bosses/sloth_king.png',
+  ChefeEvent? build() {
+    return ChefeEvent(
+      id: 'Chefe_1',
+      name: 'O Rei Preguiça',
+      description: 'Um gigante preguiçoso que quer te manter no sofá.',
+      artworkUrl: 'assets/Chefees/sloth_king.png',
       maxHp: 10000,
       currentHp: 10000,
       timeLimit: DateTime.now().add(const Duration(days: 3)),
-      rewards: [
-        Reward(id: 'xp_potion', name: 'XP Potion', quantity: 1),
-        Reward(id: 'gold', name: 'Gold Coins', quantity: 500),
+      Recompensas: [
+        Recompensa(id: 'xp_potion', name: 'XP Potion', quantity: 1),
+        Recompensa(id: 'gold', name: 'Gold Coins', quantity: 500),
       ],
     );
   }

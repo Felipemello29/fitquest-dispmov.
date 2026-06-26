@@ -1,4 +1,4 @@
-# Track daily_quests_20260605 Context
+# Track daily_missoes_20260605 Context
 
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)

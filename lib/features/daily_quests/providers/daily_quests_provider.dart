@@ -3,62 +3,62 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/quest_model.dart';
 import 'package:intl/intl.dart';
 
-final dailyQuestsProvider = NotifierProvider<DailyQuestsNotifier, List<Quest>>(DailyQuestsNotifier.new);
+final dailymissoesProvider = NotifierProvider<DailymissoesNotifier, List<Quest>>(DailymissoesNotifier.new);
 
-class DailyQuestsNotifier extends Notifier<List<Quest>> {
-  late Box<Quest> _questsBox;
+class DailymissoesNotifier extends Notifier<List<Quest>> {
+  late Box<Quest> _missoesBox;
   late Box<String> _appStateBox;
   
   static const String _lastQuestDateKey = 'lastQuestDate';
 
   @override
   List<Quest> build() {
-    _questsBox = Hive.box<Quest>('questsBox');
+    _missoesBox = Hive.box<Quest>('missoesBox');
     _appStateBox = Hive.box<String>('appStateBox');
-    return _initializeQuests();
+    return _initializemissoes();
   }
 
-  List<Quest> _initializeQuests() {
+  List<Quest> _initializemissoes() {
     final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final lastDateStr = _appStateBox.get(_lastQuestDateKey);
 
     if (lastDateStr != todayStr) {
-      _generateDailyQuests();
+      _generateDailymissoes();
       _appStateBox.put(_lastQuestDateKey, todayStr);
     }
-    return _questsBox.values.toList();
+    return _missoesBox.values.toList();
   }
 
-  void _generateDailyQuests() {
-    // Clear old quests
-    _questsBox.clear();
+  void _generateDailymissoes() {
+    // Clear old missoes
+    _missoesBox.clear();
 
-    final newQuests = [
+    final newmissoes = [
       Quest(
-        id: 'quest_steps',
+        id: 'quest_PASSOS',
         title: "Hero's March",
-        description: 'Walk 10,000 steps today.',
+        description: 'Walk 10,000 PASSOS today.',
         targetValue: 10000,
-        xpReward: 50,
+        xpRecompensa: 50,
       ),
       Quest(
-        id: 'quest_dungeon',
-        title: 'Dungeon Explorer',
-        description: 'Complete 1 Dungeon Check-in.',
+        id: 'quest_Masmorra',
+        title: 'Masmorra Explorer',
+        description: 'Complete 1 Masmorra Check-in.',
         targetValue: 1,
-        xpReward: 30,
+        xpRecompensa: 30,
       ),
       Quest(
         id: 'quest_hydration',
-        title: 'Elixir of Life',
-        description: 'Drink 8 glasses of water.',
+        title: 'Elixir da Vida',
+        description: 'Beba 8 copos de água.',
         targetValue: 8,
-        xpReward: 20,
+        xpRecompensa: 20,
       ),
     ];
 
-    for (var quest in newQuests) {
-      _questsBox.put(quest.id, quest);
+    for (var quest in newmissoes) {
+      _missoesBox.put(quest.id, quest);
     }
   }
 
@@ -66,25 +66,25 @@ class DailyQuestsNotifier extends Notifier<List<Quest>> {
     final questIndex = state.indexWhere((q) => q.id == id);
     if (questIndex != -1) {
       final quest = state[questIndex];
-      if (quest.isCompleted) return; // already completed
+      if (quest.isConcluido) return; // already CONCLUÍDO
 
       final newValue = quest.currentValue + addedValue;
-      final isCompleted = newValue >= quest.targetValue;
+      final isConcluido = newValue >= quest.targetValue;
 
       final updatedQuest = quest.copyWith(
         currentValue: newValue,
-        isCompleted: isCompleted,
+        isConcluido: isConcluido,
       );
 
-      _questsBox.put(id, updatedQuest);
+      _missoesBox.put(id, updatedQuest);
       
       state = [
         for (final q in state)
           if (q.id == id) updatedQuest else q
       ];
 
-      if (isCompleted) {
-        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward); // TODO: implement XP addition
+      if (isConcluido) {
+        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpRecompensa); // TODO: implement XP addition
       }
     }
   }
@@ -93,24 +93,24 @@ class DailyQuestsNotifier extends Notifier<List<Quest>> {
     final questIndex = state.indexWhere((q) => q.id == id);
     if (questIndex != -1) {
       final quest = state[questIndex];
-      if (quest.isCompleted) return;
+      if (quest.isConcluido) return;
 
-      final isCompleted = newValue >= quest.targetValue;
+      final isConcluido = newValue >= quest.targetValue;
 
       final updatedQuest = quest.copyWith(
         currentValue: newValue,
-        isCompleted: isCompleted,
+        isConcluido: isConcluido,
       );
 
-      _questsBox.put(id, updatedQuest);
+      _missoesBox.put(id, updatedQuest);
       
       state = [
         for (final q in state)
           if (q.id == id) updatedQuest else q
       ];
 
-      if (isCompleted) {
-        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpReward); // TODO: implement XP addition
+      if (isConcluido) {
+        // ref.read(levelingServiceProvider).addExperience(updatedQuest.xpRecompensa); // TODO: implement XP addition
       }
     }
   }

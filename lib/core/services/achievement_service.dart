@@ -13,11 +13,11 @@ class AchievementService {
 
   // Pre-defined achievements
   final List<Achievement> _defaultAchievements = [
-    Achievement(id: 'steps_1000', name: 'A Thousand Steps', description: 'Take 1,000 steps.', icon: '🚶'),
-    Achievement(id: 'steps_10000', name: 'Ten Thousand Steps', description: 'Take 10,000 steps.', icon: '🏃'),
+    Achievement(id: 'PASSOS_1000', name: 'A Thousand PASSOS', description: 'Take 1,000 PASSOS.', icon: '🚶'),
+    Achievement(id: 'PASSOS_10000', name: 'Ten Thousand PASSOS', description: 'Take 10,000 PASSOS.', icon: '🏃'),
     Achievement(id: 'level_5', name: 'Getting Stronger', description: 'Reach level 5.', icon: '⭐'),
     Achievement(id: 'level_10', name: 'True Warrior', description: 'Reach level 10.', icon: '🌟'),
-    Achievement(id: 'first_boss', name: 'Boss Slayer', description: 'Defeat your first boss.', icon: '👾'),
+    Achievement(id: 'first_Chefe', name: 'Chefe Slayer', description: 'Defeat your first Chefe.', icon: '👾'),
   ];
 
   // Pre-defined titles
@@ -89,12 +89,12 @@ class AchievementService {
 
   // --- Checkers for Events ---
 
-  Future<void> checkStepAchievements(int totalSteps) async {
-    if (totalSteps >= 1000) await unlockAchievement('steps_1000');
-    if (totalSteps >= 1000) await unlockTitle('title_walker');
+  Future<void> checkStepAchievements(int totalPASSOS) async {
+    if (totalPASSOS >= 1000) await unlockAchievement('PASSOS_1000');
+    if (totalPASSOS >= 1000) await unlockTitle('title_walker');
 
-    if (totalSteps >= 10000) await unlockAchievement('steps_10000');
-    if (totalSteps >= 10000) await unlockTitle('title_runner');
+    if (totalPASSOS >= 10000) await unlockAchievement('PASSOS_10000');
+    if (totalPASSOS >= 10000) await unlockTitle('title_runner');
   }
 
   Future<void> checkLevelAchievements(int level) async {
@@ -105,7 +105,7 @@ class AchievementService {
     if (level >= 10) await unlockTitle('title_hero');
   }
 
-  Future<void> checkBossDefeated() async {
-    await unlockAchievement('first_boss');
+  Future<void> checkChefeDefeated() async {
+    await unlockAchievement('first_Chefe');
   }
 }

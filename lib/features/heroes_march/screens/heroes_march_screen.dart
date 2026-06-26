@@ -13,7 +13,7 @@ class HeroesMarchScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('The Hero\'s March'),
+        title: const Text('The Marcha do Herói'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -25,11 +25,11 @@ class HeroesMarchScreen extends ConsumerWidget {
               // Adventure Status Banner (Sketch style)
               Container(
                 decoration: BoxDecoration(
-                  color: RPGTheme.paperBackground,
-                  border: Border.all(color: RPGTheme.graphiteDark, width: 2),
+                  color: RPGTheme.parchmentBackground,
+                  border: Border.all(color: RPGTheme.inkDark, width: 2),
                   boxShadow: [
                     BoxShadow(
-                      color: RPGTheme.graphiteMedium.withOpacity(0.2),
+                      color: RPGTheme.woodMedium.withOpacity(0.2),
                       offset: const Offset(4, 4),
                     )
                   ],
@@ -39,7 +39,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                   children: [
                     const Icon(
                       Icons.explore_outlined,
-                      color: RPGTheme.graphiteDark,
+                      color: RPGTheme.inkDark,
                       size: 32,
                     ),
                     const SizedBox(width: 16),
@@ -48,9 +48,9 @@ class HeroesMarchScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'CURRENT LOCATION',
+                            'LOCALIZAÇÃO ATUAL',
                             style: GoogleFonts.architectsDaughter(
-                              color: RPGTheme.graphiteMedium,
+                              color: RPGTheme.woodMedium,
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                               letterSpacing: 1.5,
@@ -58,7 +58,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'The Whispering Woods (Floor 1)',
+                            'Bosque dos Sussurros (Andar 1)',
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontSize: 20,
                             ),
@@ -70,12 +70,12 @@ class HeroesMarchScreen extends ConsumerWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          border: Border.all(color: RPGTheme.redPencil, width: 2),
+                          border: Border.all(color: RPGTheme.potionRed, width: 2),
                         ),
                         child: Text(
                           'SIM',
                           style: GoogleFonts.architectsDaughter(
-                            color: RPGTheme.redPencil,
+                            color: RPGTheme.potionRed,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -95,7 +95,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                     shape: BoxShape.circle,
                     color: Colors.transparent,
                     border: Border.all(
-                      color: RPGTheme.graphiteDark,
+                      color: RPGTheme.inkDark,
                       width: 2,
                     ),
                   ),
@@ -105,7 +105,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: RPGTheme.graphiteMedium,
+                          color: RPGTheme.woodMedium,
                           width: 1,
                         ),
                       ),
@@ -119,8 +119,8 @@ class HeroesMarchScreen extends ConsumerWidget {
                             child: CircularProgressIndicator(
                               value: state.progress,
                               strokeWidth: 12,
-                              backgroundColor: RPGTheme.graphiteLight.withOpacity(0.3),
-                              valueColor: const AlwaysStoppedAnimation<Color>(RPGTheme.graphiteDark),
+                              backgroundColor: RPGTheme.leatherLight.withOpacity(0.3),
+                              valueColor: const AlwaysStoppedAnimation<Color>(RPGTheme.inkDark),
                             ),
                           ),
                           // Inner dash border
@@ -129,7 +129,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                             height: 200,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(color: RPGTheme.graphiteLight, width: 1),
+                              border: Border.all(color: RPGTheme.leatherLight, width: 1),
                             ),
                           ),
                           // Step Count Details
@@ -138,12 +138,12 @@ class HeroesMarchScreen extends ConsumerWidget {
                             children: [
                               const Icon(
                                 Icons.directions_walk,
-                                color: RPGTheme.graphiteDark,
+                                color: RPGTheme.inkDark,
                                 size: 48,
                               ),
                               const SizedBox(height: 8),
                               TweenAnimationBuilder<int>(
-                                tween: IntTween(begin: 0, end: state.steps),
+                                tween: IntTween(begin: 0, end: state.PASSOS),
                                 duration: const Duration(milliseconds: 500),
                                 builder: (context, value, child) {
                                   return Text(
@@ -151,15 +151,15 @@ class HeroesMarchScreen extends ConsumerWidget {
                                     style: GoogleFonts.architectsDaughter(
                                       fontSize: 48,
                                       fontWeight: FontWeight.bold,
-                                      color: RPGTheme.redPencil,
+                                      color: RPGTheme.potionRed,
                                     ),
                                   );
                                 },
                               ),
                               Text(
-                                'STEPS',
+                                'PASSOS',
                                 style: GoogleFonts.architectsDaughter(
-                                  color: RPGTheme.graphiteDark,
+                                  color: RPGTheme.inkDark,
                                   fontSize: 16,
                                   letterSpacing: 2.0,
                                 ),
@@ -167,9 +167,9 @@ class HeroesMarchScreen extends ConsumerWidget {
                               const SizedBox(height: 8),
                               // Progress Percentage
                               Text(
-                                '${(state.progress * 100).toInt()}% COMPLETED',
+                                '${(state.progress * 100).toInt()}% CONCLUÍDO',
                                 style: GoogleFonts.patrickHand(
-                                  color: RPGTheme.graphiteMedium,
+                                  color: RPGTheme.woodMedium,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
@@ -188,7 +188,7 @@ class HeroesMarchScreen extends ConsumerWidget {
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(color: RPGTheme.graphiteLight, width: 2),
+                    bottom: BorderSide(color: RPGTheme.leatherLight, width: 2),
                   ),
                 ),
                 padding: const EdgeInsets.only(bottom: 12.0),
@@ -196,11 +196,11 @@ class HeroesMarchScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'EVOLUTION POINTS (XP)',
+                      'PONTOS DE EVOLUÇÃO (XP)',
                       style: GoogleFonts.architectsDaughter(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: RPGTheme.graphiteDark,
+                        color: RPGTheme.inkDark,
                       ),
                     ),
                     Text(
@@ -208,7 +208,7 @@ class HeroesMarchScreen extends ConsumerWidget {
                       style: GoogleFonts.architectsDaughter(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
-                        color: RPGTheme.redPencil,
+                        color: RPGTheme.potionRed,
                       ),
                     ),
                   ],
@@ -222,20 +222,20 @@ class HeroesMarchScreen extends ConsumerWidget {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                        border: Border.all(color: RPGTheme.inkDark, width: 1.5),
                       ),
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          const Icon(Icons.local_fire_department_outlined, color: RPGTheme.graphiteDark, size: 32),
+                          const Icon(Icons.local_fire_department_outlined, color: RPGTheme.inkDark, size: 32),
                           const SizedBox(height: 8),
                           Text(
-                            'CALORIES',
+                            'CALORIAS',
                             style: GoogleFonts.architectsDaughter(fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${(state.steps * 0.04).toStringAsFixed(1)} kcal',
+                            '${(state.PASSOS * 0.04).toStringAsFixed(1)} kcal',
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22),
                           ),
                         ],
@@ -246,20 +246,20 @@ class HeroesMarchScreen extends ConsumerWidget {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: RPGTheme.graphiteDark, width: 1.5),
+                        border: Border.all(color: RPGTheme.inkDark, width: 1.5),
                       ),
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          const Icon(Icons.explore_outlined, color: RPGTheme.graphiteDark, size: 32),
+                          const Icon(Icons.explore_outlined, color: RPGTheme.inkDark, size: 32),
                           const SizedBox(height: 8),
                           Text(
-                            'DISTANCE',
+                            'DISTÂNCIA',
                             style: GoogleFonts.architectsDaughter(fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${(state.steps * 0.0008).toStringAsFixed(2)} km',
+                            '${(state.PASSOS * 0.0008).toStringAsFixed(2)} km',
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22),
                           ),
                         ],
@@ -279,12 +279,12 @@ class HeroesMarchScreen extends ConsumerWidget {
             MaterialPageRoute(builder: (context) => const LogActivityScreen()),
           );
         },
-        backgroundColor: RPGTheme.graphiteDark,
-        icon: const Icon(Icons.add, color: RPGTheme.paperBackground),
+        backgroundColor: RPGTheme.inkDark,
+        icon: const Icon(Icons.add, color: RPGTheme.parchmentBackground),
         label: Text(
-          'Log Activity',
+          'Registrar Atividade',
           style: GoogleFonts.architectsDaughter(
-            color: RPGTheme.paperBackground,
+            color: RPGTheme.parchmentBackground,
             fontWeight: FontWeight.bold,
           ),
         ),

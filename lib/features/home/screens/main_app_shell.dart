@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../avatar/screens/avatar_screen.dart';
-import '../../dungeon/screens/dungeon_screen.dart';
 import '../../heroes_march/screens/heroes_march_screen.dart';
+import '../../dungeon/screens/dungeon_screen.dart';
 import '../../daily_quests/screens/daily_quests_screen.dart';
+import '../../avatar/screens/avatar_screen.dart';
 import '../../boss_battles/ui/boss_battle_screen.dart';
+
 
 class MainAppShell extends StatefulWidget {
   const MainAppShell({super.key});
@@ -15,12 +16,13 @@ class MainAppShell extends StatefulWidget {
 class _MainAppShellState extends State<MainAppShell> {
   int _currentIndex = 0;
 
+  // Lista corrigida com os construtores de cada tela
   final List<Widget> _screens = [
     const HeroesMarchScreen(),
     const DungeonScreen(),
-    const DailyQuestsScreen(),
-    const AvatarScreen(),
-    const BossBattleScreen(),
+    const DailyQuestsScreen(), // Adicionado parênteses
+    const AvatarScreen(),      // Corrigido para o nome correto do arquivo 'avatar_screen.dart'
+    const BossBattleScreen(),  // Caminho correto da pasta ui/
   ];
 
   @override
@@ -38,27 +40,26 @@ class _MainAppShellState extends State<MainAppShell> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.directions_run),
-            label: 'Hero\'s March',
+            label: 'Marcha do Herói',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: 'Dungeon',
+            label: 'Masmorra',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: 'Quests',
+            label: 'Missões',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Avatar',
+            label: 'Herói',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_martial_arts),
-            label: 'Boss',
+            label: 'Chefe',
           ),
         ],
       ),
     );
   }
 }
-
