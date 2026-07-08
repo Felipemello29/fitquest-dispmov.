@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/user_profile.dart';
 import '../constants/app_constants.dart';
+import '../errors/app_errors.dart';
 import 'repository_interfaces.dart';
 
 class HiveUserProfileRepository implements UserProfileRepository {
@@ -12,7 +13,15 @@ class HiveUserProfileRepository implements UserProfileRepository {
   
   @override
   Future<void> init() async {
-    _box = await Hive.openBox<UserProfile>(_boxName);
+    try {
+      _box = await Hive.openBox<UserProfile>(_boxName);
+    } catch (e) {
+      throw RepositoryError.now(
+        message: 'Failed to initialize user profile repository',
+        details: e.toString(),
+        isRetryable: true,
+      );
+    }
   }
 
   @override
@@ -27,12 +36,28 @@ class HiveUserProfileRepository implements UserProfileRepository {
 
   @override
   Future<UserProfile?> getProfile() async {
-    return _box.get(AppConstants.userProfileKey);
+    try {
+      return _box.get(AppConstants.userProfileKey);
+    } catch (e) {
+      throw RepositoryError.now(
+        message: 'Failed to retrieve user profile',
+        details: e.toString(),
+        isRetryable: true,
+      );
+    }
   }
 
   @override
   Future<void> saveProfile(UserProfile profile) async {
-    await _box.put(AppConstants.userProfileKey, profile);
+    try {
+      await _box.put(AppConstants.userProfileKey, profile);
+    } catch (e) {
+      throw RepositoryError.now(
+        message: 'Failed to save user profile',
+        details: e.toString(),
+        isRetryable: true,
+      );
+    }
   }
 
   @override
