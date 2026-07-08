@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import '../constants/enums.dart';
 
 class UserProfile {
   int stepCount;
@@ -12,8 +13,16 @@ class UserProfile {
     this.evolutionPoints = 0,
     this.level = 1,
     this.selectedTitleId,
-    this.currentClassType = 'novice',
+    this.currentClassType = 'novice', // default to novice as string for backward compatibility
   });
+
+  // Helper getter to get type-safe enum
+  CharacterClass get characterClass => CharacterClass.fromId(currentClassType);
+
+  // Helper setter to set from enum
+  void setCharacterClass(CharacterClass classType) {
+    currentClassType = classType.id;
+  }
 
   UserProfile copyWith({
     int? stepCount,
@@ -21,13 +30,14 @@ class UserProfile {
     int? level,
     String? selectedTitleId,
     String? currentClassType,
+    CharacterClass? characterClass,
   }) {
     return UserProfile(
       stepCount: stepCount ?? this.stepCount,
       evolutionPoints: evolutionPoints ?? this.evolutionPoints,
       level: level ?? this.level,
       selectedTitleId: selectedTitleId ?? this.selectedTitleId,
-      currentClassType: currentClassType ?? this.currentClassType,
+      currentClassType: characterClass?.id ?? currentClassType ?? this.currentClassType,
     );
   }
 }

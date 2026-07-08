@@ -35,7 +35,7 @@ class _LogActivityScreenState extends ConsumerState<LogActivityScreen> {
     
     final userBox = Hive.box<UserProfile>('userProfileBox');
     final profile = userBox.get(0, defaultValue: UserProfile())!;
-    final characterClass = CharacterClass.getById(profile.currentClassType);
+    final characterClass = CharacterClassModel.getById(profile.currentClassType);
 
     double multiplier = characterClass.xpMultiplierGeneral;
     if (_selectedActivity == 'Weightlifting') {

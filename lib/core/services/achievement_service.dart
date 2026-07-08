@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../models/achievement_model.dart';
 import '../models/title_model.dart';
+import '../constants/enums.dart';
 
 class AchievementService {
   static const String _achievementsBoxName = 'achievementsBox';
@@ -11,13 +12,13 @@ class AchievementService {
   late Box<Achievement> _achievementsBox;
   late Box<TitleModel> _titlesBox;
 
-  // Pre-defined achievements
+  // Pre-defined achievements - using type-safe enums
   final List<Achievement> _defaultAchievements = [
-    Achievement(id: 'PASSOS_1000', name: 'A Thousand PASSOS', description: 'Take 1,000 PASSOS.', icon: '🚶'),
-    Achievement(id: 'PASSOS_10000', name: 'Ten Thousand PASSOS', description: 'Take 10,000 PASSOS.', icon: '🏃'),
-    Achievement(id: 'level_5', name: 'Getting Stronger', description: 'Reach level 5.', icon: '⭐'),
+    Achievement(id: AchievementType.steps1000.id, name: AchievementType.steps1000.name, description: AchievementType.steps1000.description, icon: AchievementType.steps1000.icon),
+    Achievement(id: AchievementType.steps10000.id, name: AchievementType.steps10000.name, description: AchievementType.steps10000.description, icon: AchievementType.steps10000.icon),
+    Achievement(id: AchievementType.levelUp.id, name: 'Getting Stronger', description: 'Reach level 5.', icon: '⭐'),
     Achievement(id: 'level_10', name: 'True Warrior', description: 'Reach level 10.', icon: '🌟'),
-    Achievement(id: 'first_Chefe', name: 'Chefe Slayer', description: 'Defeat your first Chefe.', icon: '👾'),
+    Achievement(id: AchievementType.bossDefeated.id, name: AchievementType.bossDefeated.name, description: AchievementType.bossDefeated.description, icon: AchievementType.bossDefeated.icon),
   ];
 
   // Pre-defined titles
@@ -90,15 +91,15 @@ class AchievementService {
   // --- Checkers for Events ---
 
   Future<void> checkStepAchievements(int totalPASSOS) async {
-    if (totalPASSOS >= 1000) await unlockAchievement('PASSOS_1000');
+    if (totalPASSOS >= 1000) await unlockAchievement(AchievementType.steps1000.id);
     if (totalPASSOS >= 1000) await unlockTitle('title_walker');
 
-    if (totalPASSOS >= 10000) await unlockAchievement('PASSOS_10000');
+    if (totalPASSOS >= 10000) await unlockAchievement(AchievementType.steps10000.id);
     if (totalPASSOS >= 10000) await unlockTitle('title_runner');
   }
 
   Future<void> checkLevelAchievements(int level) async {
-    if (level >= 5) await unlockAchievement('level_5');
+    if (level >= 5) await unlockAchievement(AchievementType.levelUp.id);
     if (level >= 5) await unlockTitle('title_warrior');
 
     if (level >= 10) await unlockAchievement('level_10');
@@ -106,6 +107,6 @@ class AchievementService {
   }
 
   Future<void> checkChefeDefeated() async {
-    await unlockAchievement('first_Chefe');
+    await unlockAchievement(AchievementType.bossDefeated.id);
   }
 }
