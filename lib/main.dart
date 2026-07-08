@@ -6,6 +6,8 @@ import 'features/home/screens/main_app_shell.dart';
 import 'core/models/user_profile.dart';
 import 'core/models/quest_model.dart';
 import 'core/models/activity_record_model.dart';
+import 'core/models/title_model.dart';
+import 'core/models/achievement_model.dart';
 import 'features/dynamic_quests/models/dynamic_quest_adapters.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/providers/auth_provider.dart';
@@ -21,6 +23,8 @@ void main() async {
   Hive.registerAdapter(UserProfileAdapter());
   Hive.registerAdapter(QuestAdapter());
   Hive.registerAdapter(ActivityRecordAdapter());
+  Hive.registerAdapter(TitleModelAdapter());
+  Hive.registerAdapter(AchievementAdapter());
   
   // Register new dynamic quest adapters
   Hive.registerAdapter(DynamicQuestAdapter());
@@ -29,15 +33,21 @@ void main() async {
   Hive.registerAdapter(QuestRequirementAdapter());
   Hive.registerAdapter(QuestRewardAdapter());
   
-  // Open boxes
-  await Hive.openBox<UserProfile>('userProfileBox');
+  // Initialize ProviderContainer to access providers before runApp
+  final container = ProviderContainer();
+  
+  // Initialize all Repositories (this opens userProfileBox, achievementsBox, titlesBox and sets defaults)
+  await container.read(repositoryManagerProvider).initializeAll();
+
+  // Open remaining standalone boxes
   await Hive.openBox<Quest>('missoesBox');
   await Hive.openBox<ActivityRecord>('activityRecordsBox');
   await Hive.openBox<String>('appStateBox');
 
   runApp(
-    const ProviderScope(
-      child: FitQuestApp(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const FitQuestApp(),
     ),
   );
 }

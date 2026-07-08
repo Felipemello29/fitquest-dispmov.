@@ -3,10 +3,10 @@ library core_constants_enums;
 /// Core enums and constants for type safety across the application
 
 enum CharacterClass {
-  novice('novice', 'Novice', 'The beginning of your journey'),
-  warrior('warrior', 'Warrior', 'Strong and resilient fighter'),
-  ranger('ranger', 'Ranger', 'Agile and precise adventurer'), 
-  mage('mage', 'Mage', 'Wise wielder of ancient knowledge');
+  novice('novice', 'Novato', 'O início da sua jornada'),
+  warrior('warrior', 'Guerreiro', 'Lutador forte e resiliente'),
+  ranger('ranger', 'Ranger', 'Aventureiro ágil e preciso'), 
+  mage('mage', 'Mago', 'Sábio detentor de conhecimentos antigos');
 
   const CharacterClass(this.id, this.displayName, this.description);
   
@@ -23,11 +23,11 @@ enum CharacterClass {
 }
 
 enum AchievementType {
-  steps1000('PASSOS_1000', 'A Thousand PASSOS', 'Take 1,000 PASSOS.', '🚶'),
-  steps10000('PASSOS_10000', 'Ten Thousand PASSOS', 'Take 10,000 PASSOS.', '🏃'),
-  firstGym('PRIMEIRO_GYM', 'First Gym', 'Visit your first gym.', '🏛️'),
-  bossDefeated('BOSS_DEFEATED', 'Boss Slayer', 'Defeat your first boss.', '⚔️'),
-  levelUp('LEVEL_UP', 'Level Up', 'Reach a new character level.', '✨');
+  steps1000('PASSOS_1000', 'Mil Passos', 'Caminhe 1.000 passos.', '🚶'),
+  steps10000('PASSOS_10000', 'Dez Mil Passos', 'Caminhe 10.000 passos.', '🏃'),
+  firstGym('PRIMEIRO_GYM', 'Primeira Masmorra', 'Visite sua primeira masmorra.', '🏛️'),
+  bossDefeated('BOSS_DEFEATED', 'Matador de Chefes', 'Derrote o seu primeiro chefe.', '⚔️'),
+  levelUp('LEVEL_UP', 'Subir de Nível', 'Alcance um novo nível de personagem.', '✨');
 
   const AchievementType(this.id, this.name, this.description, this.icon);
   

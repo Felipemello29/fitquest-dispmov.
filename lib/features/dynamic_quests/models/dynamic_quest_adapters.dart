@@ -26,7 +26,10 @@ class DynamicQuestAdapter extends TypeAdapter<DynamicQuest> {
       expiresAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
       requirements: (reader.readList()).cast<QuestRequirement>(),
       rewards: (reader.readList()).cast<QuestReward>(),
-      completedAt: reader.readString().isEmpty ? null : reader.readString(),
+      completedAt: (() {
+        final val = reader.readString();
+        return val.isEmpty ? null : val;
+      })(),
       isPersonalized: reader.readBool(),
     );
   }
@@ -91,7 +94,10 @@ class QuestRequirementAdapter extends TypeAdapter<QuestRequirement> {
     return QuestRequirement(
       type: reader.readString(),
       minValue: reader.readInt(),
-      description: reader.readString().isEmpty ? null : reader.readString(),
+      description: (() {
+        final val = reader.readString();
+        return val.isEmpty ? null : val;
+      })(),
     );
   }
 
@@ -112,7 +118,10 @@ class QuestRewardAdapter extends TypeAdapter<QuestReward> {
     return QuestReward(
       type: reader.readString(),
       value: reader.readString(),
-      description: reader.readString().isEmpty ? null : reader.readString(),
+      description: (() {
+        final val = reader.readString();
+        return val.isEmpty ? null : val;
+      })(),
     );
   }
 

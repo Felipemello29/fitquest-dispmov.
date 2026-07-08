@@ -16,7 +16,7 @@ class DynamicQuestScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Quest Board',
+          'Quadro de Missões',
           style: GoogleFonts.cinzel(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -26,7 +26,7 @@ class DynamicQuestScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.read(dynamicQuestManagerProvider.notifier).refresh(),
-            tooltip: 'Refresh Quests',
+            tooltip: 'Atualizar Missões',
           ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
@@ -45,11 +45,11 @@ class DynamicQuestScreen extends ConsumerWidget {
             itemBuilder: (context) => [
               const PopupMenuItem(
                 value: 'regenerate',
-                child: Text('🔄 Regenerate Quests'),
+                child: Text('🔄 Gerar Novas Missões'),
               ),
               const PopupMenuItem(
                 value: 'special',
-                child: Text('✨ Create Special Quest'),
+                child: Text('✨ Criar Missão Especial'),
               ),
             ],
           ),
@@ -85,9 +85,9 @@ class DynamicQuestScreen extends ConsumerWidget {
           if (dailyQuests.isNotEmpty) ...[
             _buildSectionHeader(
               context,
-              'Daily Quests',
+              'Missões Diárias',
               '📅',
-              'Reset at midnight',
+              'Reseta à meia-noite',
             ),
             const SizedBox(height: 16),
             ...dailyQuests.map((quest) => _buildQuestCard(context, ref, quest)),
@@ -98,9 +98,9 @@ class DynamicQuestScreen extends ConsumerWidget {
           if (weeklyQuests.isNotEmpty) ...[
             _buildSectionHeader(
               context,
-              'Weekly Challenges',
+              'Desafios Semanais',
               '📋',
-              'Reset weekly',
+              'Reseta semanalmente',
             ),
             const SizedBox(height: 16),
             ...weeklyQuests.map((quest) => _buildQuestCard(context, ref, quest)),
@@ -111,9 +111,9 @@ class DynamicQuestScreen extends ConsumerWidget {
           if (specialQuests.isNotEmpty) ...[
             _buildSectionHeader(
               context,
-              'Special Events',
+              'Eventos Especiais',
               '✨',
-              'Limited time only!',
+              'Por tempo limitado!',
             ),
             const SizedBox(height: 16),
             ...specialQuests.map((quest) => _buildQuestCard(context, ref, quest)),
@@ -156,7 +156,7 @@ class DynamicQuestScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Quest Progress',
+                  'Progresso das Missões',
                   style: GoogleFonts.cinzel(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -173,7 +173,7 @@ class DynamicQuestScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '$completed/$total quests completed',
+                  '$completed/$total missões concluídas',
                   style: GoogleFonts.architectsDaughter(
                     fontSize: 14,
                     color: RPGTheme.woodMedium,
@@ -336,7 +336,7 @@ class DynamicQuestScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Progress: ${quest.currentValue}/${quest.targetValue}',
+                                  'Progresso: ${quest.currentValue}/${quest.targetValue}',
                                   style: GoogleFonts.architectsDaughter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -437,7 +437,7 @@ class DynamicQuestScreen extends ConsumerWidget {
                             const Icon(Icons.check_circle, color: Colors.green),
                             const SizedBox(width: 8),
                             Text(
-                              'QUEST COMPLETED!',
+                              'MISSÃO CONCLUÍDA!',
                               style: GoogleFonts.cinzel(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -535,7 +535,7 @@ class DynamicQuestScreen extends ConsumerWidget {
     } else if (duration.inMinutes > 0) {
       return '${duration.inMinutes}m';
     } else {
-      return 'Expiring soon!';
+      return 'Expirando em breve!';
     }
   }
 
@@ -558,7 +558,7 @@ class DynamicQuestScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No Active Quests',
+            'Sem Missões Ativas',
             style: GoogleFonts.cinzel(
               fontSize: 24,
                 color: RPGTheme.inkDark,
@@ -566,7 +566,7 @@ class DynamicQuestScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Your quest board is empty.\nRefresh to generate new quests!',
+            'Seu quadro de missões está vazio.\nAtualize para gerar novas missões!',
             textAlign: TextAlign.center,
             style: GoogleFonts.architectsDaughter(
               fontSize: 16,
@@ -575,9 +575,9 @@ class DynamicQuestScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: () => ref.read(dynamicQuestManagerProvider.notifier).refresh(),
+            onPressed: () => ref.read(dynamicQuestManagerProvider.notifier).regenerateAllQuests(),
             icon: const Icon(Icons.refresh),
-            label: const Text('Generate Quests'),
+            label: const Text('Gerar Missões'),
             style: ElevatedButton.styleFrom(
               backgroundColor: RPGTheme.woodMedium,
               foregroundColor: Colors.white,
@@ -600,7 +600,7 @@ class DynamicQuestScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Quest Board Error',
+            'Erro no Quadro de Missões',
             style: GoogleFonts.cinzel(
               fontSize: 24,
               color: Colors.red[700],
@@ -608,7 +608,7 @@ class DynamicQuestScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Failed to load quests.\nPlease try again later.',
+            'Falha ao carregar as missões.\nPor favor, tente novamente mais tarde.',
             textAlign: TextAlign.center,
             style: GoogleFonts.architectsDaughter(
               fontSize: 16,
@@ -665,7 +665,7 @@ class QuestDetailDialog extends StatelessWidget {
           // Requirements
           if (quest.requirements.isNotEmpty) ...[
             Text(
-              'Requirements:',
+              'Requisitos:',
               style: GoogleFonts.cinzel(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -686,7 +686,7 @@ class QuestDetailDialog extends StatelessWidget {
           // Rewards
           if (quest.rewards.isNotEmpty) ...[
             Text(
-              'Rewards:',
+              'Recompensas:',
               style: GoogleFonts.cinzel(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -705,7 +705,7 @@ class QuestDetailDialog extends StatelessWidget {
           ],
           
           Text(
-            'XP Reward: ${quest.xpReward}',
+            'Recompensa de XP: ${quest.xpReward}',
             style: GoogleFonts.architectsDaughter(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -716,7 +716,7 @@ class QuestDetailDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
+          child: const Text('Fechar'),
         ),
         if (!quest.isCompleted)
           ElevatedButton(
@@ -724,7 +724,7 @@ class QuestDetailDialog extends StatelessWidget {
               ref.read(dynamicQuestManagerProvider.notifier).completeQuest(quest.id);
               Navigator.of(context).pop();
             },
-            child: const Text('Mark Complete'),
+            child: const Text('Marcar como Concluída'),
           ),
       ],
     );

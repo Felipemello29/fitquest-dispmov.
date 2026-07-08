@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/auth_user.dart';
+import 'package:hive/hive.dart';
+import '../../../core/models/user_profile.dart';
 
 // Mocked database of users
 const _mockUsers = [
@@ -37,6 +39,34 @@ class AuthNotifier extends Notifier<AuthUser?> {
       final user = _mockUsers.firstWhere(
         (u) => u.email == email && u.Senha == Senha,
       );
+
+      // Initialize mock profiles for testing purposes
+      final box = Hive.box<UserProfile>('userProfileBox');
+      var profile = box.get(user.id);
+      
+      if (profile == null) {
+        profile = UserProfile();
+        if (user.accountLevel == AccountLevel.premium) {
+          profile.currentClassType = 'mage';
+          profile.evolutionPoints = 2500;
+        } else if (user.accountLevel == AccountLevel.admin) {
+          profile.currentClassType = 'warrior';
+          profile.evolutionPoints = 10000;
+        }
+        await box.put(user.id, profile);
+      } else if (profile.currentClassType == 'novice' && profile.evolutionPoints == 0) {
+        // Apply mock data to profiles that were created before the mock data logic was added
+        if (user.accountLevel == AccountLevel.premium) {
+          profile.currentClassType = 'mage';
+          profile.evolutionPoints = 2500;
+          await box.put(user.id, profile);
+        } else if (user.accountLevel == AccountLevel.admin) {
+          profile.currentClassType = 'warrior';
+          profile.evolutionPoints = 10000;
+          await box.put(user.id, profile);
+        }
+      }
+      
       state = user;
     } catch (e) {
       throw Exception('Invalid email or Senha');

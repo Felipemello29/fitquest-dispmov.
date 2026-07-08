@@ -34,7 +34,8 @@ class AvatarScreen extends ConsumerWidget {
         child: ValueListenableBuilder(
           valueListenable: Hive.box<UserProfile>('userProfileBox').listenable(),
           builder: (context, Box<UserProfile> box, _) {
-            final userProfile = box.get(0) ?? UserProfile();
+            final userId = authUser?.id ?? '0';
+            final userProfile = box.get(userId) ?? UserProfile();
             final currentLevel = LevelingService.calculateLevel(userProfile.evolutionPoints);
             final progress = LevelingService.getProgressToNextLevel(userProfile.evolutionPoints);
             final xpForCurrent = LevelingService.getXpForCurrentLevel(userProfile.evolutionPoints);
@@ -81,7 +82,7 @@ class AvatarScreen extends ConsumerWidget {
                       Column(
                         children: [
                           GestureDetector(
-                            onTap: () => _showTitleSelection(context, userProfile, Hive.box<TitleModel>('titlesBox')),
+                            onTap: () => _showTitleSelection(context, ref, userProfile, Hive.box<TitleModel>('titlesBox')),
                             child: Text(
                               _getSelectedTitleName(userProfile, Hive.box<TitleModel>('titlesBox')),
                               style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -185,9 +186,10 @@ class AvatarScreen extends ConsumerWidget {
                   OutlinedButton.icon(
                     onPressed: () {
                       final box = Hive.box<UserProfile>('userProfileBox');
-                      var profile = box.get(0) ?? UserProfile();
+                      final userId = authUser?.id ?? '0';
+                      var profile = box.get(userId) ?? UserProfile();
                       profile.evolutionPoints += 50;
-                      box.put(0, profile);
+                      box.put(userId, profile);
                     },
                     icon: const Icon(Icons.fitness_center),
                     label: const Text('Treinar (+50 XP)'),
@@ -255,7 +257,7 @@ class AvatarScreen extends ConsumerWidget {
     return title?.name ?? 'Título Desconhecido';
   }
 
-  void _showTitleSelection(BuildContext context, UserProfile profile, Box<TitleModel> titlesBox) {
+  void _showTitleSelection(BuildContext context, WidgetRef ref, UserProfile profile, Box<TitleModel> titlesBox) {
     showModalBottomSheet(
       context: context,
       backgroundColor: RPGTheme.parchmentBackground,
@@ -279,7 +281,8 @@ class AvatarScreen extends ConsumerWidget {
               trailing: profile.selectedTitleId == title.id ? const Icon(Icons.check, color: Colors.green) : null,
               onTap: () {
                 final box = Hive.box<UserProfile>('userProfileBox');
-                box.put(0, profile.copyWith(selectedTitleId: title.id));
+                final userId = ref.read(authProvider)?.id ?? '0';
+                box.put(userId, profile.copyWith(selectedTitleId: title.id));
                 Navigator.pop(context);
               },
             );

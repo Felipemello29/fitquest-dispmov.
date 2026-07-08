@@ -6,9 +6,12 @@ import 'hive_user_profile_repository.dart';
 import 'hive_achievement_repository.dart';
 import 'hive_title_repository.dart';
 
+import '../../features/auth/providers/auth_provider.dart';
+
 // Repository providers using Riverpod
 final userProfileRepositoryProvider = Provider<UserProfileRepository>((ref) {
-  return HiveUserProfileRepository();
+  final authUser = ref.watch(authProvider);
+  return HiveUserProfileRepository(userId: authUser?.id ?? '0');
 });
 
 final achievementRepositoryProvider = Provider<AchievementRepository>((ref) {

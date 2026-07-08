@@ -241,22 +241,22 @@ class QuestGenerationService {
 
     final questVariations = [
       QuestTemplate(
-        title: "The Explorer's Journey",
-        description: "Take $target steps and discover new paths",
+        title: "A Jornada do Explorador",
+        description: "Dê $target passos e descubra novos caminhos",
         targetValue: target,
         requirements: [],
         rewards: [],
       ),
       QuestTemplate(
-        title: "March of the ${stats.characterClass.displayName}",
-        description: "Walk $target steps like a true ${stats.characterClass.displayName}",
+        title: "Marcha do ${stats.characterClass.displayName}",
+        description: "Caminhe $target passos como um verdadeiro ${stats.characterClass.displayName}",
         targetValue: target,
         requirements: [],
         rewards: [],
       ),
       QuestTemplate(
-        title: "Wanderer's Path",
-        description: "Embark on a journey of $target steps through the realm",
+        title: "Caminho do Errante",
+        description: "Embarque em uma jornada de $target passos pelo reino",
         targetValue: target,
         requirements: [],
         rewards: [],
@@ -274,15 +274,15 @@ class QuestGenerationService {
   ) {
     final questVariations = [
       QuestTemplate(
-        title: "Warrior's Training",
-        description: "Visit the gym and complete a strength training session",
+        title: "Treinamento de Guerreiro",
+        description: "Visite a masmorra/academia e complete uma sessão de força",
         targetValue: type == QuestType.daily ? 1 : 3,
         requirements: [],
         rewards: [],
       ),
       QuestTemplate(
-        title: "Forge of Champions",
-        description: "Train like a champion - complete ${type == QuestType.daily ? 1 : 5} workout sessions",
+        title: "Forja dos Campeões",
+        description: "Treine como um campeão - complete ${type == QuestType.daily ? 1 : 5} sessões de treino",
         targetValue: type == QuestType.daily ? 1 : 5,
         requirements: [],
         rewards: [],
@@ -303,21 +303,21 @@ class QuestGenerationService {
     final target = (baseTarget * multiplier).round();
 
     return QuestTemplate(
-      title: "Trial of Endurance", 
-      description: "Push your limits - achieve $target steps in ${type == QuestType.daily ? 'one day' : 'one week'}",
+      title: "Prova de Resistência", 
+      description: "Ultrapasse seus limites - atinja $target passos em ${type == QuestType.daily ? 'um dia' : 'uma semana'}",
       targetValue: target,
       requirements: [
         QuestRequirement(
           type: 'level',
           minValue: 3,
-          description: 'Requires level 3 or higher',
+          description: 'Requer nível 3 ou superior',
         ),
       ],
       rewards: [
         QuestReward(
           type: 'title',
-          value: 'Endurance Master',
-          description: 'Proves your incredible stamina',
+          value: 'Mestre da Resistência',
+          description: 'Prova de seu fôlego incrível',
         ),
       ],
     );
@@ -332,15 +332,15 @@ class QuestGenerationService {
     final target = type == QuestType.daily ? 1 : 5;
     
     return QuestTemplate(
-      title: "Guardian's Devotion",
-      description: "Maintain your training streak - exercise for $target consecutive day${target == 1 ? '' : 's'}",
+      title: "Devoção do Guardião",
+      description: "Mantenha seu ritmo de treino - exercite-se por $target dia${target == 1 ? '' : 's'} consecutivo${target == 1 ? '' : 's'}",
       targetValue: target,
       requirements: [],
       rewards: [
         QuestReward(
           type: 'bonus_xp',
           value: '50',
-          description: 'Bonus XP for consistency',
+          description: 'XP Bônus por consistência',
         ),
       ],
     );
@@ -353,15 +353,15 @@ class QuestGenerationService {
     QuestDifficulty difficulty,
   ) {
     return QuestTemplate(
-      title: "Fellowship of Fitness",
-      description: "Share your progress or encourage a fellow adventurer",
+      title: "Missão de Irmandade",
+      description: "Compartilhe seu progresso ou incentive um companheiro de aventura",
       targetValue: 1,
       requirements: [],
       rewards: [
         QuestReward(
           type: 'title',
-          value: 'Motivator',
-          description: 'Awarded for inspiring others',
+          value: 'Motivador',
+          description: 'Concedido por inspirar outros',
         ),
       ],
     );
@@ -376,15 +376,15 @@ class QuestGenerationService {
     final target = type == QuestType.daily ? 1 : 3;
     
     return QuestTemplate(
-      title: "Cartographer's Journey",
-      description: "Discover new territories - visit $target new gym${target == 1 ? '' : 's'} or location${target == 1 ? '' : 's'}",
+      title: "Jornada do Cartógrafo",
+      description: "Descubra novos territórios - visite $target nova${target == 1 ? '' : 's'} masmorra${target == 1 ? '' : 's'} ou localização${target == 1 ? 'ão' : 'ões'}",
       targetValue: target,
       requirements: [],
       rewards: [
         QuestReward(
           type: 'title',
-          value: 'Explorer',
-          description: 'For those who seek new horizons',
+          value: 'Explorador',
+          description: 'Para aqueles que buscam novos horizontes',
         ),
       ],
     );
@@ -397,21 +397,21 @@ class QuestGenerationService {
     QuestDifficulty difficulty,
   ) {
     return QuestTemplate(
-      title: "Champion's Ascension",
-      description: "Prove your worth - unlock a new achievement or reach the next level",
+      title: "Ascensão do Campeão",
+      description: "Prove o seu valor - desbloqueie uma nova conquista ou alcance o próximo nível",
       targetValue: 1,
       requirements: [
         QuestRequirement(
           type: 'level',
           minValue: stats.currentLevel,
-          description: 'Current level: ${stats.currentLevel}',
+          description: 'Nível atual: ${stats.currentLevel}',
         ),
       ],
       rewards: [
         QuestReward(
           type: 'bonus_xp',
           value: '100',
-          description: 'Achievement bonus',
+          description: 'Bônus de conquista',
         ),
       ],
     );
@@ -424,21 +424,21 @@ class QuestGenerationService {
     QuestDifficulty difficulty,
   ) {
     return QuestTemplate(
-      title: "Legendary Challenge",
-      description: "A rare challenge has appeared! Complete this epic quest for legendary rewards",
+      title: "Desafio Lendário",
+      description: "Um desafio raro apareceu! Complete esta missão épica para obter recompensas lendárias",
       targetValue: 50000, // Epic step challenge
       requirements: [
         QuestRequirement(
           type: 'level',
           minValue: 5,
-          description: 'Only experienced adventurers may attempt this',
+          description: 'Apenas aventureiros experientes podem tentar',
         ),
       ],
       rewards: [
         QuestReward(
           type: 'title',
-          value: 'Legend',
-          description: 'Exclusive legendary title',
+          value: 'Lenda',
+          description: 'Título lendário exclusivo',
         ),
       ],
     );
@@ -563,11 +563,11 @@ class QuestGenerationService {
   }
 
   String _getSpecialQuestTitle(String eventTheme) {
-    return "Epic $eventTheme Challenge";
+    return "Desafio Épico de $eventTheme";
   }
 
   String _getSpecialQuestDescription(String eventTheme, UserBehaviorStats stats) {
-    return "A legendary $eventTheme event has begun! Complete this epic challenge within the time limit for exclusive rewards.";
+    return "Um evento lendário de $eventTheme começou! Complete este desafio épico dentro do limite de tempo para recompensas exclusivas.";
   }
 
   int _calculateSpecialTargetValue(String eventTheme, UserBehaviorStats stats) {

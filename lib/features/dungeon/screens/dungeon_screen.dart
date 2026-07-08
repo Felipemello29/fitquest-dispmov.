@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
-import '../providers/dungeon_provider.dart'; // Import corrigido
+import '../providers/dungeon_provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../../../core/models/user_profile.dart';
+import '../../auth/providers/auth_provider.dart';
 
 class DungeonScreen extends ConsumerStatefulWidget {
   const DungeonScreen({super.key});
@@ -23,6 +26,7 @@ class _DungeonScreenState extends ConsumerState<DungeonScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(dungeonNotifierProvider);
+    final authUser = ref.watch(authProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -63,6 +67,28 @@ class _DungeonScreenState extends ConsumerState<DungeonScreen> {
                             const SizedBox(height: 16),
                             Text('Masmorra atual:', style: GoogleFonts.architectsDaughter(color: RPGTheme.woodMedium, fontSize: 18)),
                             Text(state.checkedInGym!.name, style: GoogleFonts.architectsDaughter(color: RPGTheme.potionRed, fontSize: 24, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 16),
+                            ElevatedButton.icon(
+                              onPressed: () async {
+                                final box = Hive.box<UserProfile>('userProfileBox');
+                                final userId = authUser?.id ?? '0';
+                                var profile = box.get(userId) ?? UserProfile();
+                                profile.evolutionPoints += 150;
+                                await box.put(userId, profile);
+                                ref.read(dungeonNotifierProvider.notifier).checkout();
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Treino na Masmorra concluído! +150 XP')),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.fitness_center),
+                              label: const Text('Treinar (+150 XP) e Sair'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: RPGTheme.potionRed,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
                           ],
                         ),
                       ),

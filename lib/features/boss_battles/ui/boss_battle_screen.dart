@@ -47,7 +47,16 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
     // Corrigido: Passando apenas o campo int damageDealt
     ref.read(bossBattleProvider.notifier).dealDamage(record.damageDealt);
     
-    _shakeController.forward(from: 0);
+    final currentBoss = ref.read(bossBattleProvider);
+    if (currentBoss == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Chefe derrotado! Vitória épica!')),
+        );
+      }
+    } else {
+      _shakeController.forward(from: 0);
+    }
   }
 
   @override
@@ -56,7 +65,7 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
 
     if (bossEvent == null) {
       return const Scaffold(
-        body: Center(child: Text('No active Boss encounter')),
+        body: Center(child: Text('Nenhum chefe ativo no momento')),
       );
     }
 
@@ -111,7 +120,7 @@ class _BossBattleScreenState extends ConsumerState<BossBattleScreen> with Single
             ElevatedButton.icon(
               onPressed: bossEvent.currentHp > 0 ? _dealSimulatedDamage : null,
               icon: const Icon(Icons.flash_on),
-              label: const Text('Convert Steps to Damage (Simulate)'),
+              label: const Text('Simular Dano (Test)'),
             ),
             const SizedBox(height: 16),
           ],

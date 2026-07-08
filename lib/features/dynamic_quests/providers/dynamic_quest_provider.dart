@@ -31,6 +31,7 @@ class DynamicQuestManager extends AsyncNotifier<List<DynamicQuest>> {
     _questGenerator = ref.read(questGenerationServiceProvider);
     
     await _repository.init();
+    await ref.read(userProfileRepositoryProvider).init();
     await _checkAndGenerateQuests();
     return await _repository.getActiveQuests();
   }

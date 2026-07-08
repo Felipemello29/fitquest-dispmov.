@@ -11,14 +11,14 @@ class AchievementsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Achievements'),
+        title: const Text('Conquistas'),
       ),
       body: ValueListenableBuilder(
         valueListenable: Hive.box<Achievement>('achievementsBox').listenable(),
         builder: (context, Box<Achievement> box, _) {
           final achievements = box.values.toList();
           if (achievements.isEmpty) {
-            return const Center(child: Text('No achievements found.'));
+            return const Center(child: Text('Nenhuma conquista encontrada.'));
           }
 
           return GridView.builder(

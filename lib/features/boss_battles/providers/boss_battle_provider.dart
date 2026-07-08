@@ -25,8 +25,10 @@ class BossBattleNotifier extends Notifier<BossEvent?> {
     if (state == null) return;
     
     int newHp = state!.currentHp - damage;
-    if (newHp < 0) newHp = 0;
-    
-    state = state!.copyWith(currentHp: newHp);
+    if (newHp <= 0) {
+      state = null; // Boss derrotado!
+    } else {
+      state = state!.copyWith(currentHp: newHp);
+    }
   }
 }

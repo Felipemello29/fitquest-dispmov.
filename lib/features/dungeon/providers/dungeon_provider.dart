@@ -97,6 +97,16 @@ class DungeonNotifier extends Notifier<DungeonState> {
       return false;
     }
   }
+
+  void checkout() {
+    state = DungeonState(
+      isLoading: state.isLoading,
+      currentLocation: state.currentLocation,
+      nearbyGyms: state.nearbyGyms,
+      error: state.error,
+      checkedInGym: null,
+    );
+  }
 }
 
 // Nome do provider atualizado para manter a consistência

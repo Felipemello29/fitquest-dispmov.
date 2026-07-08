@@ -10,6 +10,9 @@ import 'repository_interfaces.dart';
 class HiveUserProfileRepository implements UserProfileRepository {
   static const String _boxName = 'userProfileBox';
   late Box<UserProfile> _box;
+  final String userId;
+
+  HiveUserProfileRepository({this.userId = '0'});
   
   @override
   Future<void> init() async {
@@ -31,13 +34,13 @@ class HiveUserProfileRepository implements UserProfileRepository {
 
   @override
   Stream<UserProfile?> watchProfile() {
-    return _box.watch(key: AppConstants.userProfileKey).asyncMap((_) async => await getProfile());
+    return _box.watch(key: userId).asyncMap((_) async => await getProfile());
   }
 
   @override
   Future<UserProfile?> getProfile() async {
     try {
-      return _box.get(AppConstants.userProfileKey);
+      return _box.get(userId);
     } catch (e) {
       throw RepositoryError.now(
         message: 'Failed to retrieve user profile',
@@ -50,7 +53,7 @@ class HiveUserProfileRepository implements UserProfileRepository {
   @override
   Future<void> saveProfile(UserProfile profile) async {
     try {
-      await _box.put(AppConstants.userProfileKey, profile);
+      await _box.put(userId, profile);
     } catch (e) {
       throw RepositoryError.now(
         message: 'Failed to save user profile',

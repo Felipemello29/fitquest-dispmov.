@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/constants/enums.dart';
+import '../../auth/providers/auth_provider.dart';
+import '../../auth/models/auth_user.dart';
 import '../providers/class_provider.dart';
 
 class ClassDetailsScreen extends ConsumerWidget {
@@ -138,6 +141,59 @@ class ClassDetailsScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            
+            // ADMIN PANEL
+            if (ref.watch(authProvider)?.accountLevel == AccountLevel.admin) ...[
+              const SizedBox(height: 32),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.1),
+                  border: Border.all(color: Colors.red, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.admin_panel_settings, color: Colors.red),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Admin Override',
+                          style: GoogleFonts.architectsDaughter(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[900],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children: CharacterClass.values.map((c) {
+                        return ElevatedButton(
+                          onPressed: () {
+                            ref.read(classProvider.notifier).setClass(c);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Class changed to ${c.displayName}!')),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: currentClass.id == c.id ? Colors.red : RPGTheme.inkDark,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: Text(c.displayName),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ],
         ),
       ),

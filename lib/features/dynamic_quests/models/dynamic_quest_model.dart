@@ -236,15 +236,15 @@ extension QuestDifficultyExtensions on QuestDifficulty {
   String get displayName {
     switch (this) {
       case QuestDifficulty.easy:
-        return 'Novice Quest';
+        return 'Missão de Novato';
       case QuestDifficulty.medium:
-        return 'Adventurer Quest';
+        return 'Missão de Aventureiro';
       case QuestDifficulty.hard:
-        return 'Hero Quest';
+        return 'Missão Heroica';
       case QuestDifficulty.epic:
-        return 'Epic Quest';
+        return 'Missão Épica';
       case QuestDifficulty.legendary:
-        return 'Legendary Quest';
+        return 'Missão Lendária';
     }
   }
 
@@ -268,21 +268,21 @@ extension QuestCategoryExtensions on QuestCategory {
   String get displayName {
     switch (this) {
       case QuestCategory.movement:
-        return "Explorer's Path";
+        return "Caminho do Explorador";
       case QuestCategory.strength:
-        return "Warrior's Training";
+        return "Treinamento de Guerreiro";
       case QuestCategory.endurance:
-        return "Marathoner's Trial";
+        return "Prova do Maratonista";
       case QuestCategory.consistency:
-        return "Guardian's Devotion";
+        return "Devoção do Guardião";
       case QuestCategory.social:
-        return "Fellowship Quest";
+        return "Missão de Irmandade";
       case QuestCategory.exploration:
-        return "Cartographer's Journey";
+        return "Jornada do Cartógrafo";
       case QuestCategory.achievement:
-        return "Champion's Ascension";
+        return "Ascensão do Campeão";
       case QuestCategory.special:
-        return "Legendary Event";
+        return "Evento Lendário";
     }
   }
 
