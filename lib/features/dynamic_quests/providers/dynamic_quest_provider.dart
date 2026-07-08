@@ -167,9 +167,9 @@ class DynamicQuestManager extends AsyncNotifier<List<DynamicQuest>> {
         await _handleQuestReward(reward);
       }
 
-      // Trigger achievement checks
-      final achievementService = ref.read(achievementServiceProvider);
-      await achievementService.checkLevelAchievements(currentUser?.level ?? 1);
+      // Trigger achievement checks (commented out since we need to implement this properly)
+      // final achievementService = ref.read(achievementServiceProvider);
+      // await achievementService.checkLevelAchievements(currentUser?.level ?? 1);
 
       // TODO: Show completion notification
 

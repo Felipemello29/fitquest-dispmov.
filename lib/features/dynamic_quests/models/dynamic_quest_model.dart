@@ -1,7 +1,7 @@
 library dynamic_quest_model;
 
 import 'package:hive/hive.dart';
-import '../../core/constants/enums.dart';
+import '../../../core/constants/enums.dart';
 
 /// Enhanced quest model with dynamic generation support
 @HiveType(typeId: 8) // New typeId to avoid conflicts

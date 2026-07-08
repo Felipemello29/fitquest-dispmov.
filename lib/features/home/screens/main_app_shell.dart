@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../heroes_march/screens/heroes_march_screen.dart';
 import '../../dungeon/screens/dungeon_screen.dart';
-import '../../daily_quests/screens/daily_quests_screen.dart';
+import '../../dynamic_quests/screens/dynamic_quest_screen.dart';
 import '../../avatar/screens/avatar_screen.dart';
 import '../../boss_battles/ui/boss_battle_screen.dart';
 
@@ -18,7 +18,7 @@ class _MainAppShellState extends State<MainAppShell> {
   final List<Widget> _screens = [
     const HeroesMarchScreen(),
     const DungeonScreen(),
-    const DailyQuestsScreen(), 
+    const DynamicQuestScreen(), 
     const AvatarScreen(),      
     const BossBattleScreen(),  
   ];
