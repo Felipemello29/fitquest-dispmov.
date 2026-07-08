@@ -3,4 +3,6 @@ export 'constants/enums.dart';
 export 'constants/app_constants.dart';
 export 'models/user_profile.dart';
 export 'services/achievement_service.dart';
+export 'repositories/repository_interfaces.dart';
+export 'repositories/repository_providers.dart';
 export 'theme/app_theme.dart';

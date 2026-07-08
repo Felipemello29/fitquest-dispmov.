@@ -8,7 +8,7 @@ import 'core/models/quest_model.dart';
 import 'core/models/activity_record_model.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/providers/auth_provider.dart';
-import 'core/services/achievement_service.dart';
+import 'core/repositories/repository_providers.dart';
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -22,9 +22,6 @@ void main() async {
   await Hive.openBox<Quest>('missoesBox');
   await Hive.openBox<ActivityRecord>('activityRecordsBox');
   await Hive.openBox<String>('appStateBox');
-
-  final achievementService = AchievementService();
-  await achievementService.init();
 
   runApp(
     const ProviderScope(
