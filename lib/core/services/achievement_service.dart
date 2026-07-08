@@ -22,14 +22,19 @@ class AchievementService {
     if (achievementBefore != null && !achievementBefore.isUnlocked) {
       await _achievementRepository.unlockAchievement(id);
       
-      // Show notification to user
-      rootScaffoldMessengerKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text('🏆 Achievement Unlocked: ${achievementBefore.name}!'),
-          backgroundColor: Colors.amber[700],
-          duration: const Duration(seconds: 4),
-        ),
-      );
+      // Show notification to user (only if ScaffoldMessenger is available)
+      try {
+        rootScaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+            content: Text('🏆 Achievement Unlocked: ${achievementBefore.name}!'),
+            backgroundColor: Colors.amber[700],
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      } catch (e) {
+        // Handle cases where UI context is not available (e.g., during testing)
+        // Silently ignore or log the error
+      }
     }
   }
 
